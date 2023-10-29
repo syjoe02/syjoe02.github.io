@@ -2,7 +2,7 @@
 
 1. Connect to DevContainer in VScode
 
-    ![Alt text](./Screenshot/Screenshot%202023-10-25%20at%2018.32.50.png)
+    ![Alt text](./images/Screenshot%202023-10-25%20at%2018.32.50.png)
 
 
 2. Open Terminal
