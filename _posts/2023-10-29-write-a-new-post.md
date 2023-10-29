@@ -1,7 +1,7 @@
 ---
 title: Tutorial Post template
 author: syjoe
-date: 2023-10-25 23:00:00 +0900
+date: 2023-10-29 17:40:00 +0900
 categories: [Templates]
 tags: [Tutorial]
 render_with_liquid: false
