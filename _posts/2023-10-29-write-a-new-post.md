@@ -1,10 +1,10 @@
 ---
-layout: home
 title: Writing a New Post
 author: syJoe
 date: 2023-10-30 00:00:00 +0900
 categories: [Tutorial]
 tags: [writing]
+comments: true  
 ---
 
 This tutorial will guide you how to write a post in the _Chirpy_ template, and it's worth reading even if you've used Jekyll before, as many features require specific variables to be set.
