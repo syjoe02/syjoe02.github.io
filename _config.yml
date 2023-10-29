@@ -16,7 +16,7 @@ timezone: Asia/Seoul
 
 title: Blog # the main title
 
-tagline: Step by Step # it will display as the sub-title
+tagline: Software Developer Blog # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
