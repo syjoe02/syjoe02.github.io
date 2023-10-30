@@ -1,27 +1,89 @@
 ---
-title: Writing a New Post
+title: Git Commands
 author: syJoe
 date: 2023-10-30 00:00:00 +0900
-categories: [Tutorial]
-tags: [writing]
+categories: [Git]
+tags: [git]
 comments: true  
 ---
 
-This tutorial will guide you how to write a post in the _Chirpy_ template, and it's worth reading even if you've used Jekyll before, as many features require specific variables to be set.
+Git commands
 
-## Naming and Path
+## Git Push
 
-Create a new file named `YYYY-MM-DD-TITLE.EXTENSION`{: .filepath} and put it in the `_posts`{: .filepath} of the root directory. Please note that the `EXTENSION`{: .filepath} must be one of `md`{: .filepath} and `markdown`{: .filepath}. If you want to save time of creating files, please consider using the plugin [`Jekyll-Compose`](https://github.com/jekyll/jekyll-compose) to accomplish this.
-
-## Front Matter
-
-Basically, you need to fill the [Front Matter](https://jekyllrb.com/docs/front-matter/) as below at the top of the post:
-
-```yaml
----
-title: TITLE
-date: YYYY-MM-DD HH:MM:SS +/-TTTT
-categories: [TOP_CATEGORIE, SUB_CATEGORIE]
-tags: [TAG]     # TAG names should always be lowercase
----
+```bash
+git push --set-upstream origin <branch>
+git push -u origin <branch>
 ```
+- ```-u option``` is the same effect as ```--set-upstream```
+
+By setting the upstream branch, you specify the default remote branch
+
+## Git Fetch
+
+```bash
+git fetch
+```
+- git pull = git fetch + git merge
+
+### When?
+- Retrieve updates from a remote repo, but without changes into your current workspace
+
+
+## Git Merge & Rebase
+
+Both ```Git merge``` and ```Git rebase``` are used to integrate changes from dev branch into main branch, for example.
+But, they do it in different ways and the result is <u>a different commmit history.</u>
+
+![Alt text](https://cdn-images-1.medium.com/max/1600/0%252ArucUjv2TPi0E75jD.png)
+
+- ```Git Rebase``` provides a more linear project history by <u>avoiding unnecessary merge commits.</u>
+
+- ```Git Merge```  keeps all commits while making visible when work started on different branches (simple but potentially messy)
+
+## Git Stash
+
+It is a command that allows you to temporarily save changes that you have made but do not want to commmit yet.
+
+### When?
+- If you have uncommitted changes in your working directory that <u>conflict with the changes</u> you're trying to pull or merge
+
+- Before switching branches
+
+### Stashing Changes
+
+```bash
+git stash
+git stash "commit message"
+```
+
+### Apply stash and drop
+
+-  apply a specifiy stash & drop
+
+```bash
+git stash apply stash@{1 ~ n}
+git stash drop stash@{1 ~ n}
+```
+
+- apply a recent stash & drop
+
+```bash
+git stash apply
+git stash drop
+```
+
+### Stash pop = apply + drop
+
+```bash
+git stash pop
+```
+
+## Git Reset
+
+It is used to undo the last commit in your repository
+
+```bash
+git reset HEAD^
+```
+
