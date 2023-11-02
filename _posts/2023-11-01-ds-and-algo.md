@@ -109,7 +109,6 @@ Modular Programming OR Procedural Programming : Breaking a code into smaller pie
 int main() {
 	fun1(); 
 	fun2();
-	 … 
 }
 ```
 
