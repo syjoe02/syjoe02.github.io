@@ -50,6 +50,13 @@ int main(void)
 }
 ```
 
+- Constructor ```Arithmetic (int a, int b)``` which takes two integer parameters a and b and initializes the member variables a and b.
+
+    - ```this -> a``` : It means this is ```variable```
+
+    - this -> a = ```a``` : It is a parameter
+
+- In the main() function, an object of the Arithmetic class named ```ar``` is created with the values (10, 5) <u>passed to the constructor</u>
 
 
 ## Scope Resolution
@@ -96,6 +103,10 @@ int main(void)
 	return 0;
 }
 ```
+
+- Scope resolution operator in C++ is ```::```
+
+- For example, ```Arithmetic::Arithmetic(int a, int b)```, It tells the compiler that this functions (Arithmetic, add, sub) are <u>the member of the Arithmetic class</u>
 
 
 ## Template
@@ -150,3 +161,5 @@ int main(void)
 	return 0;
 }
 ```
+
+- The class T within the angle brackets < > is <u>a placeholder for the data type</u>
