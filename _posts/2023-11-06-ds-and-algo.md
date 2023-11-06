@@ -141,7 +141,7 @@ Calculate the time complexity:
 ### Explain
 
 In this for loop
-```
+```c++
 for (i=0; i<n; i++)
 ```
 - ```i = 0```
@@ -190,3 +190,4 @@ f(n) = 2n^2 + 2n + 1 = O(n^2)
 - `n*n`
 
 	Executed for each iteration of both outer and inner `n*n`
+
