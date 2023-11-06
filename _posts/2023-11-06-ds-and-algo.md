@@ -70,7 +70,7 @@ Online course lectures up to the 45th
 
 ### Example
 
-```Python
+```python
 class Stack:
     def __init__(self):
         self.stack = []
@@ -104,3 +104,89 @@ class Stack:
 
 ## Time & Space Complexity
 
+### Examples
+
+```c++
+void swap(x,y)
+{
+	int temp;
+
+	temp = x; // -> 1 (assignment)
+	x = y;    // -> 1 (assignment)
+	y = temp; // -> 1 (assignment)
+}
+```
+
+Calculate the time complexity:
+
+- f(n) = 3n^0  = O(n^0) = O(1)
+
+```c++
+int sum(int A[], int n)
+{
+	int s,i; 
+	s = 0;            // -> 1 (assignment)
+
+	for (i=0; i<n; i++) // -> n+1
+	{
+		s = s+A[i];   // -> n
+	}
+	return s;         // -> 1 (assignment)
+}
+```
+Calculate the time complexity:
+
+- f(n) = 2n + 3 = O(n)
+
+### Explain
+
+In this for loop
+```
+for (i=0; i<n; i++)
+```
+- ```i = 0```
+
+	It is assignment. `1`
+- ```i<n```
+
+	condition, So It is `n` but, we have to add `+1` for the condtiion fail
+	So, It is `n+1`
+
+- ```i++```
+
+	It is `n`
+
+We can ignore all others (1 and n), so for loop takes `n+1`
+
+```c++
+void Add(int n)
+{
+	int i,j;
+
+	for (i=0;i<n;i++) 					 //-> n+1
+	{
+		for (j=0;j<n;j++) 				 //-> n*(n+1)
+		{
+			c[i][j] = A[i][j] + B[i][j]; //-> n*n
+		}
+	}
+}
+```
+
+Calculate the time complexity:
+
+f(n) = 2n^2 + 2n + 1 = O(n^2)
+
+### Explain
+
+- `n+1`
+
+	outer for loop (same principle above the only one for loop fucntion)
+
+- `n*(n+1)`
+
+	Outer loop iterates `n` times * Also, inner loop condition iterates `n+1`
+
+- `n*n`
+
+	Executed for each iteration of both outer and inner `n*n`
