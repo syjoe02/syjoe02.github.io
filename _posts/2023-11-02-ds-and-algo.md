@@ -1,5 +1,5 @@
 ---
-title: Mastering Data Structures & Alogrithms
+title: 2. Mastering Data Structures & Alogrithms
 author: syJoe
 date: 2023-11-02 00:23:00 +0900
 categories: [Udemy]
