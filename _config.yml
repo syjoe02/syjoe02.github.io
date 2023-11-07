@@ -14,9 +14,9 @@ timezone: Asia/Seoul
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Blog # the main title
+title: Joe # the main title
 
-tagline: Software Developer Blog # it will display as the sub-title
+tagline: "We cant operate at a higher level without consistency" # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
@@ -69,13 +69,13 @@ theme_mode: # [light|dark]
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar:
+avatar: "./assets/img/profile/profile.avif"
 
 # boolean type, the global switch for TOC in posts.
 toc: true
 
 comments:
-  active: 'giscus'
+  active: "giscus"
   # The active options are as follows:
   disqus:
     shortname: # fill with the Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
@@ -85,14 +85,14 @@ comments:
     issue_term: # "pathname"
   # Giscus options › https://giscus.app
   giscus:
-    repo: 'ryanjoe02/ryanjoe02.github.io'
-    repo_id: 'R_kgDOKkxYVQ'
-    category: 'General'
-    category_id: 'DIC_kwDOKkxYVc4CauPa'
+    repo: "ryanjoe02/ryanjoe02.github.io"
+    repo_id: "R_kgDOKkxYVQ"
+    category: "General"
+    category_id: "DIC_kwDOKkxYVc4CauPa"
     mapping: # optional, default to 'pathname'
     input_position: # optional, default to 'bottom'
     lang: # optional, default to the value of `site.lang`
-    reactions_enabled: # optional, default to the value of 
+    reactions_enabled: # optional, default to the value of
 
 # Self-hosted static assets, optional › https://github.com/cotes2020/chirpy-static-assets
 assets:
