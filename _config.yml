@@ -16,7 +16,7 @@ timezone: Asia/Seoul
 
 title: Joe # the main title
 
-tagline: "We cant operate at a higher level without consistency" # it will display as the sub-title
+tagline: "We can not operate at a higher level without consistency" # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
