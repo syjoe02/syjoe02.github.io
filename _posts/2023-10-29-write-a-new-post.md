@@ -3,7 +3,7 @@ title: Git Commands
 author: syJoe
 date: 2023-10-30 00:00:00 +0900
 categories: [Git]
-tags: [git]
+tags: [Git]
 comments: true  
 ---
 
