@@ -7,8 +7,6 @@ tags: [Git]
 comments: true  
 ---
 
-Git commands
-
 ## Git Push
 
 ```bash
