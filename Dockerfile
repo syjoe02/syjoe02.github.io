@@ -10,4 +10,4 @@ RUN apk add --no-cache build-base gcc cmake git
 # Update the Ruby bundler and install Jekyll
 RUN gem update bundler
 RUN gem install jekyll
-RUN gem install bundler  
+RUN gem install bundler:2.4.21
