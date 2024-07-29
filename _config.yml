@@ -1,5 +1,8 @@
 # The Site Configuration
 
+# Access future page
+future: true
+
 # Import the theme
 theme: jekyll-theme-chirpy
 
@@ -181,10 +184,13 @@ exclude:
   - package*.json
 
 jekyll-archives:
-  enabled: [categories, tags]
+  enabled: [categories]
   layouts:
     category: category
-    tag: tag
+    # tag: tag
   permalinks:
-    tag: /tags/:name/
+    # tag: /tags/:name/
     category: /categories/:name/
+
+tag_page_dir: tags
+tag_page_layout: tag_page
