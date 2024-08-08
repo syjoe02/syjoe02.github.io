@@ -19,7 +19,7 @@ timezone: Asia/Seoul
 
 title: Joe # the main title
 
-tagline: "We can not operate at a higher level without consistency" # it will display as the sub-title
+tagline: "<a href='https://github.com/syjoe02'>https://github.com/syjoe02</a>" # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
