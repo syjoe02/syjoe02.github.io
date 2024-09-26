@@ -1,10 +1,10 @@
 ---
-title: Git Commands
+title: (Essential Git Commands) Push, Fetch, Merge, Stash, and Reset
 author: syJoe
 date: 2023-10-30 00:00:00 +0900
 categories: [Git]
 tags: [git]
-comments: true  
+description: This post covers essential Git commands that every developer should know. Learn how to use git push, git fetch, git merge, git stash, and git reset to manage your version control effectively. Understand the differences between merging and rebasing, and how to temporarily save changes with stash. 
 ---
 
 # Git
@@ -48,14 +48,14 @@ It is a command that allows you to temporarily save changes that you have made b
 
 - Before switching branches
 
-### Stashing Changes
+### A. Stashing Changes
 
 ```bash
 git stash
 git stash "commit message"
 ```
 
-### Apply stash and drop
+### B. Apply stash and drop
 
 -  apply a specifiy stash & drop
 
@@ -64,14 +64,14 @@ git stash apply stash@{1 ~ n}
 git stash drop stash@{1 ~ n}
 ```
 
-### Apply a recent stash & drop
+### C. Apply a recent stash & drop
 
 ```bash
 git stash apply
 git stash drop
 ```
 
-### Stash pop = apply + drop
+### D. Stash pop = apply + drop
 
 ```bash
 git stash pop

@@ -1,13 +1,14 @@
 ---
-title: 1. Mastering Data Structures & Alogrithms
+title: (Mastering Data Structures and Algorithms) Pointers, Structures, and Function Calls in C++
 author: syJoe
 date: 2023-11-01 00:00:00 +0900
 categories: [Udemy]
-tags: [c++]
-comments: true  
+tags: [c++, algorithm]
+description: This post covers fundamental concepts in C++ programming, including pointers, dereferencing and referencing, structures, and function calls. Learn about memory management with pointers, the advantages of using structures for data organization, and the differences between call by value and call by reference.
 ---
 
 # Udemy
+
 Online course lectures up to the 16th
 
 ### 1. **Pointer**
@@ -68,7 +69,7 @@ It represents a structure that holds the length and breadth of a rectangle as it
 
 - Easy data management
 
-### **Malloc**
+### 5. **Malloc**
 
 ```c++
 struct Rectagle
@@ -97,7 +98,7 @@ int main()
 
 
 
-### **Function**
+### 6. **Function**
 
 - Monolithic Programming : Everything inside the main function. 
 
@@ -110,7 +111,7 @@ int main()
     }
     ```
 
-### 1. **Call by Value**
+### A. **Call by Value**
 
 This is a method of function calling where the actual value of the variable is passed to the function.
 
@@ -120,7 +121,7 @@ This is a method of function calling where the actual value of the variable is p
 
 | main values (A,B) : But main isn't modified |
 
-### 2. **Call by Reference**
+### B. **Call by Reference**
 
 This is a method of function calling where a reference (the address) to the original variable is passed to the function. 
 
