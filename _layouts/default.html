@@ -14,15 +14,15 @@ layout: compress
 
 <!-- `site.alt_lang` can specify a language different from the UI -->
 <html lang="{{ site.alt_lang | default: site.lang }}" {{ prefer_mode }}>
+{% include head.html %}
 
 <head>
-  {% include head.html %}
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A blog about finance and development.">
   <meta name="keywords" content="finance, development, coding, programming">
   <meta name="author" content="syJoe">
+  <link rel="icon" href="/assets/img/favicons/favicon.ico">
   <title>{{ page.title }} - Financial Dev</title>
 </head>
 
