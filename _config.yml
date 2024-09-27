@@ -20,15 +20,15 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
 
-title: Financial Developer # the main title
+title: "Financial Developer" # the main title
 
 tagline: "<a href='https://github.com/syjoe02'>https://github.com/syjoe02</a>" # it will display as the sub-title
 
-description: "A developer interested in finance and computer science"
+description: "A blog focused on financial programming with Python, covering topics like algorithm, data, and quantitative finance."
 
 # Fill in the protocol & hostname for your site.
 # e.g. 'https://username.github.io', note that it does not end with a '/'.
-url: "https://syjoe02.github.io/"
+url: "https://syjoe02.github.io"
 
 github:
   username: syjoe02 # change to your github username
