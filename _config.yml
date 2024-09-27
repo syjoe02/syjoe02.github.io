@@ -24,8 +24,7 @@ title: Financial Developer # the main title
 
 tagline: "<a href='https://github.com/syjoe02'>https://github.com/syjoe02</a>" # it will display as the sub-title
 
-description: >- # used by seo meta and the atom feed
-  A developer interested in finance and computer science
+description: "A developer interested in finance and computer science"
 
 # Fill in the protocol & hostname for your site.
 # e.g. 'https://username.github.io', note that it does not end with a '/'.
