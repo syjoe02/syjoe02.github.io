@@ -4,6 +4,7 @@ module Jekyll
   
       def generate(site)
         site.tags.each do |tag, posts|
+          slug = tag.gsub(' ', '-').gsub(/[^\w-]/, '') # Keep the original case in the slug
           site.pages << TagPage.new(site, site.source, File.join('tags', tag), tag)
         end
       end
