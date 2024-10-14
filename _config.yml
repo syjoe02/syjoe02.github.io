@@ -167,9 +167,9 @@ jekyll-archives:
   enabled: [categories]
   layouts:
     category: category
-    # tag: tag
+    tag: tag
   permalinks:
-    # tag: /tags/:name/
+    tag: /tags/:name/
     category: /categories/:name/
 
 tag_page_dir: tags

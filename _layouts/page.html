@@ -6,15 +6,17 @@ layout: default
 
 <article class="px-1">
   {% if page.layout == 'page' or page.collection == 'tabs' %}
-    {% assign tab_key = page.title | downcase %}
-    {% assign title = site.data.locales[lang].tabs[tab_key] | default: page.title %}
-    <h1 class="dynamic-title">
-      {{ title }}
-    </h1>
-    <div class="content">
-      {{ content }}
-    </div>
-  {% else %}
+  {% unless page.tag %} <!-- If not page.tag then, use dynamic-title -->
+  {% assign tab_key = page.title | downcase %}
+  {% assign title = site.data.locales[lang].tabs[tab_key] | default: page.title %}
+  <h1 class="dynamic-title">
+    {{ title }}
+  </h1>
+  {% endunless %}
+  <div class="content">
     {{ content }}
+  </div>
+  {% else %}
+  {{ content }}
   {% endif %}
 </article>
