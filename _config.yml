@@ -19,6 +19,7 @@ timezone: Asia/Seoul
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
+  - jekyll-seo-tag
 
 title: "Financial Developer" # the main title
 
