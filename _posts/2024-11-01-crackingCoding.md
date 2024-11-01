@@ -186,7 +186,6 @@ int main() {
 
   2. Remove `const`. So the strings are now passed by value, which means copies of `s1` and `s2` are created inside the function -> Increase memory usage
 
-
 ### GO
 
 ```go
