@@ -21,7 +21,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
-title: "Financial Developer" # the main title
+title: "SyJo' Developer" # the main title
 
 tagline: "<a href='https://github.com/syjoe02'>https://github.com/syjoe02</a>" # it will display as the sub-title
 
