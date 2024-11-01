@@ -1,5 +1,5 @@
 ---
-title: Cracking Coding Problems (4 different Languages)
+title: Cracking Coding Problems (oneAway)
 author: syJoe
 date: 2024-10-27 09:00:00 +0800
 categories: [LeetCode]
