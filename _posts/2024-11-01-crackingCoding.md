@@ -3,8 +3,8 @@ title: Cracking Coding Problems (oneAway)
 author: syJoe
 date: 2024-10-27 09:00:00 +0800
 categories: [LeetCode]
-tags: [c++, python, algorithm, go, java]
-description: 
+tags: [python, java, c++, go, algorithm]
+description: Cracking Coding Interviews 6th problems and solutions
 ---
 
 # One Away
