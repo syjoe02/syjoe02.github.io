@@ -2,9 +2,9 @@
 title: Cracking Coding Problems (oneAway)
 author: syJoe
 date: 2024-10-27 09:00:00 +0800
-categories: [LeetCode]
+categories: [CrackingCoding]
 tags: [python, java, c++, go, algorithm]
-description: Cracking Coding Interviews 6th problems and solutions
+description: Explore the 'One Away' string problem where you determine if two strings are one edit (insert, remove, replace) away from being identical. This page provides efficient solutions using multiple programming languages, Python, C++, Java, and Go. Learn how to implement this algorithm with detailed explanations and code comparisons. Discover differences in syntax, type handling, and performance optimization across languages. Also includes best practices like using const references in C++, ternary operators in Java, and := quick declarations in Go. Perfect for preparing coding interviews and enhancing problem-solving skills with diverse code implementations
 ---
 
 # One Away
@@ -29,6 +29,10 @@ one edit (or zero edit) away.
   To check if a deletion would make the string match
 
 - If the `shorter` length == `longer` length , increment both indics by 1
+
+### Prerequisite
+
+- None
 
 ### Python
 

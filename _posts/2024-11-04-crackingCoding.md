@@ -2,9 +2,9 @@
 title: Cracking Coding Problems (Linked List)
 author: syJoe
 date: 2024-11-05 09:00:00 +0800
-categories: [LeetCode]
+categories: [CrackingCoding]
 tags: [python, java, c++, go, algorithm]
-description: Cracking Coding Interviews 6th problems and solutions
+description: Learn how to solve the 'Return Kth to Last' problem in a singly linked list using two-pointer techniques. This page provides efficient solutions in multiple programming languages, Python, C++, Java, and Go. We explain key concepts like pointer traversal, memory management, and syntax differences across languages. Discover why using -> for pointer access in C++ and nil in Go is essential. Perfect for coding interview preparation and enhancing your data structure problem-solving skills with clear, in-depth tutorials
 ---
 
 # Return Kth to Last
@@ -20,6 +20,10 @@ description: Cracking Coding Interviews 6th problems and solutions
 - And then, both `first` and `second` pointers move together until the `first` reaches the end of the list
 
 - At this point, `second` will point to the kth to last element
+
+### Prerequisite
+
+- None
 
 ### Python
 
