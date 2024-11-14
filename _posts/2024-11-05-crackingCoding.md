@@ -4,7 +4,7 @@ author: syJoe
 date: 2024-11-05 09:00:00 +0800
 categories: [CrackingCoding]
 tags: [python, java, c++, go, algorithm]
-description: Cracking Coding Interviews 6th problems and solutions
+description: The LRU Cache is a data structure designed to store a limited number of key-value pairs and prioritize recent accesses, removing the least recently used items when full. This implementation uses a combination of a doubly linked list and a hash map (or dictionary) for fast lookups and efficient removal/insertion of nodes
 ---
 
 # LRU(Least Recently Used) Cache
