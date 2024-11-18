@@ -4,7 +4,7 @@ author: syJoe
 date: 2024-11-13 09:00:00 +0800
 categories: [CrackingCoding]
 tags: [python, java, c++, go, algorithm]
-description: Cracking Coding Interviews 6th problems and solutions
+description: The Build Order problem involves finding a valid sequence to build a set of projects given dependencies between them. This can be modeled as a directed graph where nodes represent projects and edges represent dependencies. The goal is to perform a topological sort to determine the build order, ensuring that a project is not built before its dependencies
 ---
 
 # Build Order
