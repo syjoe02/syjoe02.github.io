@@ -1,5 +1,5 @@
 ---
-title: "[Cracking Coding Problems] Backetball hoop"
+title: "[Cracking Coding Problems] Logical Puzzles"
 author: syJoe
 date: 2024-11-25 09:00:00 +0800
 categories: [CrackingCoding]
@@ -8,7 +8,7 @@ math: true
 description: This logic puzzle explores the probabilities of success in two basketball games and determines which game to choose based on the probability of making a shot
 ---
 
-# Logic Puzzles
+# Basketball
 
 - You have a basketball hoop and someone says that you can play one of two games.
     
@@ -77,3 +77,57 @@ for p in [0.1, 0.3, 0.5, 0.7, 0.9]:
 - Result Graph
 
     ![Alt text](../assets/img/blog/result_graph.png)
+
+# Dominos
+
+- There is an 8x8 chessboard in which two diagonally opposite corners have been cut off. You are given 31 dominos, and a single domino can cover exactly two squares. Can you use the 31 dominos to cover the entire board? Prove your answer (by providing an example or showing why `it's impossible`)
+
+### Approach
+
+- Domino covers exactly 2 squares that are adjacent to each other. And chessboard squares are different colors (Black and White)
+
+- So, when Domino cover exactly two squares, It will always cover one black and one while
+
+- Therefore, the number of black squares and white squares must be equal
+
+- However, Every chessboard always the same color in the diagonally opposite corners
+
+- Thus, It is impossible
+
+### Python
+
+```python
+def can_cover_with_dominos():
+    board = [[(i + j) % 2 for j in range(8)] for i in range(8)]
+    # Delete two diagonally opposite corners
+    board[0][0] = -1
+    board[7][7] = -1
+    
+    black_count = sum(cell == 1 for row in board for cell in row)
+    white_count = sum(cell == 0 for row in board for cell in row)
+    
+    print("Black squares:", black_count)
+    print("White squares:", white_count)
+    
+    if black_count != white_count:
+        return "Impossible to cover the board with 31 dominos."
+    else:
+        return "Possible to cover the board with 31 dominos."
+
+print(can_cover_with_dominos())
+```
+
+- Proof: The opposite corners of an N * N chessboard have the same color
+
+    - Example
+   
+        If (i + j) is even == white
+        
+        If (i + j) is odd == black
+        
+        And (0, 0) is even == white
+    
+    - So, The bottom-right corner is
+
+        (N - 1) + (N - 1) = 2N - 2 == Always `even`
+        
