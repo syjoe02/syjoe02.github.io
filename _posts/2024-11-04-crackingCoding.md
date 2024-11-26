@@ -1,5 +1,5 @@
 ---
-title: Cracking Coding Problems (Linked List)
+title: "[Cracking Coding Problems] Linked List"
 author: syJoe
 date: 2024-11-05 09:00:00 +0800
 categories: [CrackingCoding]

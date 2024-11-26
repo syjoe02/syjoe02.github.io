@@ -1,5 +1,5 @@
 ---
-title: (Essential Git Commands) Push, Fetch, Merge, Stash, and Reset
+title: "[Git Commands] Push, Fetch, Merge, Stash, and Reset"
 author: syJoe
 date: 2023-10-30 00:00:00 +0900
 categories: [Git]
