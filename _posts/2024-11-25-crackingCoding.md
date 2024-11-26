@@ -1,127 +1,79 @@
 ---
-title: "[Cracking Coding Problems] Bitwise Operations"
+title: "[Cracking Coding Problems] Backetball hoop"
 author: syJoe
 date: 2024-11-25 09:00:00 +0800
 categories: [CrackingCoding]
-tags: [python, java, c++, go, algorithm]
-description: 
+tags: [python, algorithm]
+math: true
+description: This logic puzzle explores the probabilities of success in two basketball games and determines which game to choose based on the probability of making a shot
 ---
 
 # Logic Puzzles
 
-- 6.2 Basketball
+- You have a basketball hoop and someone says that you can play one of two games.
+    
+    - Game 1: You get one shot to make the hoop.
+    - Game 2: You get three shots and you have to make two of three shots.
 
-- 6.10 Poison
+    If p is the probability of making a particular shot, for which values of p should you pick one game
+    or the other?
 
 ### Approach
 
-- 
+- Calculate probability with the probability mass function of a binomial distribution 
+
+    $$
+    P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}
+    $$
+
+    - P(X = k) = (n choose k) * p^k * (1-p)^(n-k)
+
+- Game1 : P(game1) = p
+
+- Game 2 : P(X = 2) + P(X = 3)
 
 ### Prerequisite
 
-- IQ
+- Probability
 
 ### Python
 
 ```python
-def pairwiseSwap(n):
-    oddMask = 0xAAAAAAAA
-    evenMask = 0x55555555
+import numpy as np
+import matplotlib.pyplot as plt
 
-    oddBits = (n & oddMask) >> 1
-    evenBits = (n & evenMask) << 1
+def game1_probability(p):
+    return p
 
-    return oddBits | evenBits
+def game2_probability(p):
+    return 3 * p**2 * (1 - p) + p**3
 
-# Example usage
-n = 0b10101010  # 170 in decimal
-result = pairwiseSwap(n)
-print(f"Input:  {bin(n)}")
-print(f"Output: {bin(result)}")
+p_values = np.linspace(0, 1, 1000)
+game1_probs = game1_probability(p_values)
+game2_probs = game2_probability(p_values)
+
+# plot
+plt.figure(figsize=(10, 6))
+plt.plot(p_values, game1_probs, label="Game 1 Probability")
+plt.plot(p_values, game2_probs, label="Game 2 Probability")
+plt.axvline(x=0.5, color='red', linestyle='--', label="Intersection (~0.5)")
+plt.xlabel("Probability of Making a Shot (p)")
+plt.ylabel("Winning Probability")
+plt.title("Comparison of Winning Probabilities for Game 1 and Game 2")
+plt.legend()
+plt.grid()
+plt.show()
+
+# Determine for which values of p to choose each game
+for p in [0.1, 0.3, 0.5, 0.7, 0.9]:
+    g1 = game1_probability(p)
+    g2 = game2_probability(p)
+    if g1 > g2:
+        print(f"For p = {p:.2f}, choose Game 1 (P1: {g1:.3f}, P2: {g2:.3f})")
+    else:
+        print(f"For p = {p:.2f}, choose Game 2 (P1: {g1:.3f}, P2: {g2:.3f})")
 ```
 
-- Prefix `0x` indicates a hexadecimal number
+- Result Graph
 
-    `0b` indicates a binary number
-
-### Java
-
-```java
-public class PairwiseSwap {
-    public static int pairwiseSwap(int n) {
-        int oddMask = 0xAAAAAAAA;
-        int evenMask = 0x55555555;
-
-        int oddBits = (n & oddMask) >>> 1;
-        int evenBits = (n & evenMask) << 1;
-
-        return oddBits | evenBits;
-    }
-
-    public static void main(String[] args) {
-        int n = 0b10101010; // 170 in decimal
-        int result = pairwiseSwap(n);
-        System.out.println("Input:  " + Integer.toBinaryString(n));
-        System.out.println("Output: " + Integer.toBinaryString(result));
-    }
-}
-```
-
-- `.toBinaryString` method : Convert an `int` into `binary` as a string
-
-### C++
-
-```c++
-#include <iostream>
-#include <bitset>
-using namespace std;
-
-unsigned int pairwiseSwap(unsigned int n) {
-    unsigned int oddMask = 0xAAAAAAAA;
-    unsigned int evenMask = 0x55555555;
-
-    unsigned int oddBits = (n & oddMask) >> 1;
-    unsigned int evenBits = (n & evenMask) << 1;
-
-    return oddBits | evenBits;
-}
-
-int main() {
-    unsigned int n = 0b10101010; // 170 in decimal
-    unsigned int result = pairwiseSwap(n);
-
-    cout << "Input:  " << bitset<8>(n) << endl;
-    cout << "Output: " << bitset<8>(result) << endl;
-
-    return 0;
-}
-```
-
-### Go
-
-```go
-package main
-
-import (
-	"fmt"
-)
-
-func pairwiseSwap(n uint) uint {
-	oddMask := uint(0xAAAAAAAA)
-	evenMask := uint(0x55555555)
-
-	oddBits := (n & oddMask) >> 1
-	evenBits := (n & evenMask) << 1
-
-	return oddBits | evenBits
-}
-
-func main() {
-	n := uint(0b10101010) // 170 in decimal
-	result := pairwiseSwap(n)
-	fmt.Printf("Input:  %08b\n", n)
-	fmt.Printf("Output: %08b\n", result)
-}
-```
-
-- Go : `uint` == C++ : `unsigned int`
+    ![Alt text](../assets/img/blog/result_graph.png)
