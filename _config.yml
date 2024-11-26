@@ -22,8 +22,6 @@ plugins:
   - jekyll-seo-tag
 
 title: "Algorithm Daily: Solve & Explain" # the main title
-seo:
-  title_separator: " | "
 
 tagline: "<a href='https://github.com/syjoe02'>https://github.com/syjoe02</a>" # it will display as the sub-title
 

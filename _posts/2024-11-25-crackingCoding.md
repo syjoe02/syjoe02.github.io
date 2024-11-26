@@ -1,5 +1,5 @@
 ---
-title: \[Cracking Coding Problems\] Bitwise Operations
+title: "[Cracking Coding Problems] Bitwise Operations"
 author: syJoe
 date: 2024-11-25 09:00:00 +0800
 categories: [CrackingCoding]
