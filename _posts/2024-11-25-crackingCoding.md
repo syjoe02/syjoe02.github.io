@@ -130,4 +130,51 @@ print(can_cover_with_dominos())
     - So, The bottom-right corner is
 
         (N - 1) + (N - 1) = 2N - 2 == Always `even`
-        
+
+# 100 Lockers
+
+- There are 100 closed lockers in a hallway. A man begins by opening all 100 lockers. Next, he closes every second locker. Then, on his third pass, he toggles every third locker (closes it if it is open or opens it if it is closed). This process continues for 100 passes, such that on each pass i, the man toggles every ith locker. After his 100th pass in the hallway, in which he toggles only locker #100, how many lockers are open?
+
+### Approach
+
+- For example, scenario with 6 lockers (not a 100)
+
+    ```text
+    O : open , C : close
+
+    1 2 3 4 5 6
+    O O O O O O
+      C   C   C
+        C     O
+          O
+            C
+              C
+    ```
+
+    Only 1, 4 locker is opened
+
+- Odd number of divisors (1, 4, 9, ...) == Locker is always closed
+
+    2 of divisor : 1, 2 (even) == Locker is closed
+
+    6 of divisor : 1, 2, 3, 6 (even) == Locker is closed
+
+- Thus, only lockers numbered as perfect squares will remain open
+
+### Python
+
+```python
+def countOpenLockers(n):
+    return int(n**0.5)
+
+# Ask the number of lockers
+try:
+    n = int(input("Number of lockers : "))
+    if n <= 0:
+        print("Only positive integer")
+    else:
+        result = countOpenLockers(n)
+        print(f"Number of openv lockers for {n} lockers : {result}")
+except ValueError:
+    print("Invalid Input")
+```
