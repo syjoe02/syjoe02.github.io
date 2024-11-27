@@ -3,7 +3,7 @@ title: "[Cracking Coding Problems] Logical Puzzles"
 author: syJoe
 date: 2024-11-25 09:00:00 +0800
 categories: [CrackingCoding]
-tags: [python, algorithm]
+tags: [python, java, c++, go, algorithm]
 math: true
 description: Dive into a collection of classic logic puzzles, complete with detailed explanations, mathematical approaches, and Python code implementations to verify and visualize the solutions. Whether you're preparing for interviews, enhancing your problem-solving skills, or just love a good challenge, these puzzles will captivate your interest
 ---
@@ -191,3 +191,261 @@ can be used to detect poison. A single drop of poison will turn the test strip p
     You can put any number of drops on a test strip at once and you can reuse a test strip as many time as you'd like (as long as the results are negative). 
 
     However, you can only run tests once per day and it takes seven days to return a result. How would you figure out the poisoned bottle in as few days as possible?
+
+### Approach
+
+- Since binary is `0, 1`, it can also be interpreted as `True, False`. Therefore, converting numbers (0 ~ 1000) into binary.
+
+- A 10-bit binary number can represent up to 1024, so the range is sufficient. Now, think of each binary digit as a test strip
+
+    bit == The place where I can use test strip
+
+- If the digit is 1, using the test strip. Even if non-poison drinks continuously tested, the result will remain negative
+
+    However, `negative test strip` encounters a poison soda, the result will react positively
+
+- Test all 1000 drinks with the test strips in `one day` and wait 7 days after the result
+
+    If the result is negative -> converting 0
+    
+    Result is positive -> 1
+
+- Convert this binary -> Convert 10-base again -> This bottle is poison
+
+### Python
+
+```python
+import random
+
+def findPoisonBottle(numBottles=1000, numStrips=10):
+    poisonedBottle = random.randint(1, numBottles)
+    bottles = list(range(1, numBottles + 1))
+    binaryList = [format(bottle, f'0{numStrips}b') for bottle in bottles]
+    results = [0] * numStrips
+
+    for i in range(numStrips):
+        if format(poisonedBottle, f'0{numStrips}b')[i] == '1':
+            results[i] = 1
+
+    print(f"Simulated test strip results: {results}")
+    detectedBinary = ''.join(map(str, results))
+    detectedPoisonedBottle = int(detectedBinary, 2)
+    
+    if detectedPoisonedBottle == poisonedBottle:
+        return detectedPoisonedBottle
+    else:
+        return f"Error: Detected bottle ({detectedPoisonedBottle}) does not match the actual poisoned bottle ({poisonedBottle})."
+
+detectedBottle = findPoisonBottle()
+print(f"The poisoned bottle detected by the algorithm is: {detectedBottle}")
+```
+- Result
+
+```text
+Simulated test strip results: [1, 1, 1, 0, 0, 0, 1, 0, 0, 1]
+The poisoned bottle detected by the algorithm is: 905
+```
+
+- `format(bottle, f'010b')` : Convert a `decimal number (bottle)` into a binary
+
+    ```text
+    binaryList = [format(bottle, f'0{numStrips}b') for bottle in bottles]
+                                   0 : padding with zeros
+                                     numStrips (10) : 10 characters
+                                               b : binary
+    ```
+
+    ```python
+    print(format(5, '8b'))    # 8 characters, padded with spaces: "     101"
+    print(format(5, '08b'))   # 8 characters, padded with zeros: "00000101"
+    ``` 
+
+- List Comprehension 
+
+    ```python 
+    binaryList = [format(bottle, f'0{numStrips}b') for bottle in bottles]
+    ```
+
+    More intuitive and easier
+
+- Using `lambda` with `map()`
+
+    ```python
+    binaryList = list(map(lambda bottle : format(bottle, f'0{numStrips}b', bottles)))
+    ```
+
+    Simple, But it is hard to notice what it is
+    
+    So, `lambda` is called : anonymous function
+
+### Java
+
+```java
+import java.util.Random;
+
+public class PoisonBottle {
+    public static void main(String[] args) {
+        int numBottles = 1000;
+        int numStrips = 10;
+
+        int poisonedBottle = new Random().nextInt(numBottles) + 1;
+        String[] binaryList = new String[numBottles];
+        int[] results = new int[numStrips];
+
+        for (int i = 0; i < numBottles; i++) {
+            binaryList[i] = String.format("%" + numStrips + "s", Integer.toBinaryString(i + 1)).replace(' ', '0');
+        }
+
+        String poisonedBinary = String.format("%" + numStrips + "s", Integer.toBinaryString(poisonedBottle)).replace(' ', '0');
+        for (int i = 0; i < numStrips; i++) {
+            if (poisonedBinary.charAt(i) == '1') {
+                results[i] = 1;
+            }
+        }
+
+        System.out.println("Simulated test strip results:");
+        for (int result : results) {
+            System.out.print(result);
+        }
+        System.out.println();
+
+        StringBuilder detectedBinary = new StringBuilder();
+        for (int result : results) {
+            detectedBinary.append(result);
+        }
+        int detectedPoisonedBottle = Integer.parseInt(detectedBinary.toString(), 2);
+
+        if (detectedPoisonedBottle == poisonedBottle) {
+            System.out.println("The poisoned bottle detected by the algorithm is: " + detectedPoisonedBottle);
+        } else {
+            System.out.println("Error: Detected bottle (" + detectedPoisonedBottle + ") does not match the actual poisoned bottle (" + poisonedBottle + ").");
+        }
+    }
+}
+```
+
+- `int poisonedBottle = new Random().nextInt(numBottles) + 1;`
+
+    Since the object is not stored in a variable, this Random object cannot be reused after the method call
+
+    Therefore, the Random object is temporarily created in memory, and once its use is complete, it is cleaned up by the `Garbage Collector (GC)`
+
+- Java : `binaryList[i] = String.format("%" + numStrips + "s", Integer.toBinaryString(i + 1)).replace(' ', '0');`
+
+    == Python : `binaryList = [format(bottle, f'0{numStrips}b') for bottle in bottles]`
+
+    - `"%" + numStrips + "s"` : the fixed width of numStrips(10)
+
+- `StringBuilder detectedBinary = new StringBuilder();` 
+
+    Unlike `String` class, `StringBuilder` is mutable, meaing it allows modifications to string
+
+### C++
+
+```c++
+#include <iostream>
+#include <bitset>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+
+int main() {
+    const int numBottles = 1000;
+    const int numStrips = 10;
+
+    srand(time(0));
+    int poisonedBottle = rand() % numBottles + 1;
+    int results[numStrips] = {0};
+
+    std::string poisonedBinary = std::bitset<10>(poisonedBottle).to_string();
+    for (int i = 0; i < numStrips; i++) {
+        if (poisonedBinary[i] == '1') {
+            results[i] = 1;
+        }
+    }
+
+    std::cout << "Simulated test strip results: ";
+    for (int i = 0; i < numStrips; i++) {
+        std::cout << results[i];
+    }
+    std::cout << std::endl;
+
+    std::string detectedBinary = "";
+    for (int i = 0; i < numStrips; i++) {
+        detectedBinary += std::to_string(results[i]);
+    }
+    int detectedPoisonedBottle = std::stoi(detectedBinary, nullptr, 2);
+
+    if (detectedPoisonedBottle == poisonedBottle) {
+        std::cout << "The poisoned bottle detected by the algorithm is: " << detectedPoisonedBottle << std::endl;
+    } else {
+        std::cout << "Error: Detected bottle (" << detectedPoisonedBottle << ") does not match the actual poisoned bottle (" << poisonedBottle << ")." << std::endl;
+    }
+
+    return 0;
+}
+```
+
+- `srand(time(0))`
+
+    time(0) : Return the current time in seconds
+
+    So, the random numbers is generated every time the program is executed because time is always change
+
+### Go
+
+```go
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"strconv"
+	"time"
+)
+
+func main() {
+	rand.Seed(time.Now().UnixNano())
+	numBottles := 1000
+	numStrips := 10
+
+	poisonedBottle := rand.Intn(numBottles) + 1
+	results := make([]int, numStrips)
+
+	poisonedBinary := fmt.Sprintf("%0*b", numStrips, poisonedBottle)
+	for i := 0; i < numStrips; i++ {
+		if poisonedBinary[i] == '1' {
+			results[i] = 1
+		}
+	}
+	fmt.Printf("Simulated test strip results: %v\n", results)
+
+	detectedBinary := ""
+	for _, result := range results {
+		detectedBinary += strconv.Itoa(result)
+	}
+	detectedPoisonedBottle, _ := strconv.ParseInt(detectedBinary, 2, 64)
+
+	if int(detectedPoisonedBottle) == poisonedBottle {
+		fmt.Printf("The poisoned bottle detected by the algorithm is: %d\n", detectedPoisonedBottle)
+	} else {
+		fmt.Printf("Error: Detected bottle (%d) does not match the actual poisoned bottle (%d).\n", detectedPoisonedBottle, poisonedBottle)
+	}
+}
+```
+
+- `rand.Seed(time.Now().UnixNano())`
+
+    `rand` generates pseudo-random numbers, and return the current time as a nanosecond timestamp
+
+- C++ : `int results[numStrips] = {0};` == Go : `results := make([]int, numStrips)`
+
+    make : create a slice of int with length of numStrips
+    
+    All elements initialized to default value `0`
+
+-  `%0*b` format specifier : padding with `0` 
+
+    == C++ : `std::string poisonedBinary = std::bitset<10>(poisonedBottle).to_string();`
+
+    == Java : `String poisonedBinary = String.format("%" + numStrips + "s", Integer.toBinaryString(poisonedBottle)).replace(' ', '0');`
