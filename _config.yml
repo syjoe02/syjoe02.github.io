@@ -54,6 +54,9 @@ social:
 google_analytics:
   id: # fill in your Google Analytics ID
 
+include:
+  - ads.txt
+
 # Prefer color scheme setting.
 #
 # Note: Keep empty will follow the system prefer color by default,
