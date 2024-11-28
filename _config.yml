@@ -56,6 +56,7 @@ google_analytics:
 
 include:
   - ads.txt
+  - assets/js/app.min.js
 
 # Prefer color scheme setting.
 #
