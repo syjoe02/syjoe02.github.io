@@ -1,5 +1,5 @@
 ---
-title: "BackUp IPhone's Picture in Python [Part 1]"
+title: "Backup IPhone's Picture in Python [Part 1]"
 author: syJoe
 date: 2024-12-01 09:00:00 +0800
 categories: [Review]
@@ -56,3 +56,6 @@ description: Struggling to retrieve photos from your iPhone's backup files? Lear
 - I used `iBackup Viewer` to verify that my Python script successfully extracted the photos. 
     
     you can download [iBackup Viewer](https://www.imactools.com/iphonebackupviewer/) and access those features for a fee
+
+
+Next step, explain it how to use this code -> CLICK(https://)
