@@ -5,7 +5,7 @@ date: 2024-12-05 09:00:00 +0800
 categories: [CrackingCoding]
 tags: [java]
 math: true
-description: 
+description: Efficiently handle customer queries with this detailed Java implementation of a Call Center Management System. Designed for optimal call routing and escalation management, this system includes three hierarchical employee levels.  The program utilizes core concepts such as object-oriented programming (OOP), encapsulation, and deque-based queuing to assign calls dynamically to the first available employee. It includes robust features such as call escalation, handler assignment, and resource release management.
 ---
 
 # Call Center: 
