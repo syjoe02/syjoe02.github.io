@@ -14,7 +14,7 @@ description: Explore a practical implementation of the Triple Step Problem using
 
 ### Approach
 
-- Use `bottom-up` approach to store cache (Memoization)
+- Use `Top-Down` approach to store cache (Memoization)
 
 - Base case 
     
@@ -146,12 +146,63 @@ func main() {
 
 - Recursive algorithms can be very space inefficient. For the reason, it is often better to implement a recursive algorithm iteratively
 
-- Use `Memoization`(cache using Array)
+- If not use `Bottom-Up` and `Top-Down`,
 
-    Overall time complexity : `O(n)` and Space complexity is `O(n)`
+    - Overall time complexity : `O(3^n)` 
 
-- If not use `Memorization` then
+        Because there are up to 3 possible branches (hopping 1,2,3)
 
-    Overall time complexity : `O(3^n)` and Space complexity is `O(n)`
+    - Space complexity is `O(n)`
 
-    Because there are up to 3 possible branches (hopping 1,2,3)
+- I solved all this problem with `Top-Down` Approach
+
+    - Overall time complexity : `O(n)`
+    
+    - Space complexity is `O(n)`
+
+- However, I can ooptimize the space complexity using `Bottom-Up` Approach
+
+    - Overall time complexity : `O(n)`
+    
+    - Space complexity is `O(1)`
+
+### Optimized Code (Bottom-Up)
+
+- Implemented to `O(1)` by avoiding the use of a full array (`vector<long long> step`)
+
+### C++
+
+```c++
+#include <iostream>
+using namespace std;
+
+int countWays(int n) {
+    if (n == 0) return 1;
+    if (n == 1) return 1;
+    if (n == 2) return 2;
+
+    long long prev3 = 1;
+    long long prev2 = 1;
+    long long prev1 = 2;
+
+    long long current = 0;
+
+    for (int i = 3; i <= n; i++) {
+        current = prev1 + prev2 + prev3;
+        prev3 = prev2;
+        prev2 = prev1;
+        prev1 = current;
+    }
+
+    return current;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    cout << countWays(n) << endl;
+    return 0;
+}
+```
+
+- Variables (prev1, prev2, prev2) are updated (shifted) to discard the oldest value and include the latest one
