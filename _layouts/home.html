@@ -35,15 +35,6 @@ refactor: true
   {% endif %}
 
   <div id="post-list" class="flex-grow-1 px-xl-1">
-    <!-- Google Ad -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9310294889519290"
-      crossorigin="anonymous"></script>
-    <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-9310294889519290"
-      data-ad-slot="6087402401"></ins>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-
     {% for post in posts %}
     <article class="card-wrapper card">
       <a href="{{ post.url | relative_url }}" class="post-preview row g-0 flex-md-row-reverse">
