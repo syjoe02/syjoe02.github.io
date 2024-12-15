@@ -1,5 +1,5 @@
 ---
-title: "[Cracking Coding Problems] Double Linked List and HashMap"
+title: "[Cracking Coding Problems] Double Linked List and HashMap [Part 2]"
 author: syJoe
 date: 2024-11-13 09:00:00 +0800
 categories: [CrackingCoding]
