@@ -32,7 +32,7 @@ python3 backup_script.py
 
 - Go to the Desktop (~/Desktop)
 
-- Check `results` Directory :\)
+- Check `results` Directory :\
 
 # However, It is not a Pefect
 
