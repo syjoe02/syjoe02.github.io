@@ -64,6 +64,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3.0.1
         with:
           path: "_site${{ steps.pages.outputs.base_path }}"
+          name: github-pages
 
   deploy:
     if: github.ref == 'refs/heads/main'
@@ -75,4 +76,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4.0.5
