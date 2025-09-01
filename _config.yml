@@ -21,7 +21,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
-title: "Algorithm Daily: Solve & Explain" # the main title
+title: "When to Use Each Alorithm?" # the main title
 seo:
   title_separator: " | "
 
