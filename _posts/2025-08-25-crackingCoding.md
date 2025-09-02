@@ -64,7 +64,7 @@ public static boolean isUniqueSort(String s) {
 
     QuickSort is O(1) auxiliary space, but recursion the total space is O(log N) on average and O(N) in the worst case
 
-- QuickSort, click here
+- QuickSort, [click here](https://syjoe02.github.io/posts/2025-09-02-2025-09-01-crackingCoding/)
 
 ## 3) HashSet + Unicode Code Points
 
