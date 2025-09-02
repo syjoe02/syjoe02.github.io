@@ -1,5 +1,5 @@
 ---
-title: ""[Cracking Coding Problems] 1. Algorithms"
+title: "[Cracking Coding Problems] 1. Algorithms"
 author: syJoe
 date: 2025-09-01 09:00:00 +0800
 categories: [CrackingCoding]
