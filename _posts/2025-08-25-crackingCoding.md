@@ -58,13 +58,21 @@ public static boolean isUniqueSort(String s) {
 
     Arrays.sort internally uses `Dual-Pivot Quicksort` (QuickSort average time = O(N logN))
 
-- Space : O(1 - N)
+- Space
 
     Depends on `sorting implementation` → This refers to which sorting algorithm is actually used internally
 
-    QuickSort is O(1) auxiliary space, but recursion the total space is O(log N) on average and O(N) in the worst case
+    - Auxiliary space : O(1)
 
-- QuickSort, [click here](https://syjoe02.github.io/posts/2025-09-01-crackingCoding/)
+        Because QuickSort only in-place swaps are needed
+    
+    - With recursion stack included
+    
+        O(log N) on average
+        
+        O(N) in the worst case
+
+- QuickSort, [click here](https://syjoe02.github.io/posts/2025-09-01-crackingCoding/#1-dual-piviot-quicksort)
 
 ## 3) HashSet + Unicode Code Points
 

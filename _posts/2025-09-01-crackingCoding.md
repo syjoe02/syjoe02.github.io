@@ -7,7 +7,9 @@ tags: [algorithm, java]
 description: ""
 ---
 
-## 1) Dual-Pivot QickSort (Java Arrays.sort(int[]))
+## 1) Dual-Pivot QickSort
+
+- Used `(Java Arrays.sort(int[]))`
 
 - Three-way partitioning strategy, making it faster than single-pivot QuickSort
 
