@@ -4,7 +4,7 @@ author: syJoe
 date: 2025-08-25 09:00:00 +0800
 categories: [CrackingCoding]
 tags: [algorithm, java]
-description: ""
+description: "Solve the 'Is Unique' string problem from Cracking the Coding Interview in Java. Learn multiple solutions: brute force, sorting, HashSet with Unicode code points, ASCII boolean array, and bitmask for lowercase a-z. Understand time and space complexity (O(N²), O(N log N), O(N)), why to use codePointAt for emojis, and how Unicode normalization (NFC) ensures correctness. Perfect guide for coding interview prep with detailed Java examples."
 ---
 
 # 1. Is Unique
