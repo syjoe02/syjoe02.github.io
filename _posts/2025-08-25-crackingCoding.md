@@ -1,5 +1,5 @@
 ---
-title: ""[Cracking Coding Problems] 1. Arrays and Strings"
+title: "[Cracking Coding Problems] 1. Arrays and Strings"
 author: syJoe
 date: 2025-08-25 09:00:00 +0800
 categories: [CrackingCoding]
