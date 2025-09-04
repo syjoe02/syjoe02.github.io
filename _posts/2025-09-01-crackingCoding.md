@@ -4,7 +4,7 @@ author: syJoe
 date: 2025-09-01 09:00:00 +0800
 categories: [CrackingCoding]
 tags: [algorithm, java]
-description: ""
+description: "Understand Dual-Pivot QuickSort with Java code examples. Learn how Arrays.sort(int[]) in Java uses dual-pivot partitioning, dividing elements into three groups (<p, between p and q, >q) for faster sorting than single-pivot QuickSort. Includes detailed code, step-by-step explanation, time complexity O(N log N), and space complexity O(1) auxiliary with recursion stack O(log N) average / O(N) worst case."
 ---
 
 ## 1) Dual-Pivot QickSort

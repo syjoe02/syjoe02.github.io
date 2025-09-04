@@ -4,7 +4,7 @@ author: syJoe
 date: 2025-09-02 09:00:00 +0800
 categories: [CrackingCoding]
 tags: [algorithm, java]
-description: ""
+description: "Learn multiple ways to detect a cycle in a singly linked list in Java. Compare brute force O(N²), HashSet O(N), marking technique O(N) with O(1) space, and Floyd’s Tortoise and Hare algorithm O(N)/O(1). Includes code examples, time and space complexity analysis, and why Floyd’s cycle detection is the standard interview solution to find the cycle start node."
 ---
 
 # 8. Loop Detection
