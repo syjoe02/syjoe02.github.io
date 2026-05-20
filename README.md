@@ -1,30 +1,49 @@
-## Workspace in Docker
+# Starlight Starter Kit: Basics
 
-1. Connect to DevContainer in VScode
+[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
 
-    ![Alt text](./assets/img/readme/Screenshot%202023-10-25%20at%2018.32.50.png)
+```
+npm create astro@latest -- --template starlight
+```
 
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-2. Open Terminal
+## 🚀 Project Structure
 
-    ```
-    bundle
-    bundle exec jekyll s
-    ```
+Inside of your Astro + Starlight project, you'll see the following folders and files:
 
-3. Access to localhost:4000
+```
+.
+├── public/
+├── src/
+│   ├── assets/
+│   ├── content/
+│   │   └── docs/
+│   └── content.config.ts
+├── astro.config.mjs
+├── package.json
+└── tsconfig.json
+```
 
+Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
 
-## Usage
+Images can be added to `src/assets/` and embedded in Markdown with a relative link.
 
-Please see the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy#documentation).
+Static assets, like favicons, can be placed in the `public/` directory.
 
-## License
+## 🧞 Commands
 
-This work is published under [MIT][mit] License.
+All commands are run from the root of the project, from a terminal:
 
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
-[chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
-[use-template]: https://github.com/cotes2020/chirpy-starter/generate
-[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
-[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
