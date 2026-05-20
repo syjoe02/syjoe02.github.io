@@ -1,0 +1,109 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+	.filter((p) => !p.data.draft)
+	.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
+---
+
+<BaseLayout title="Engineering" description="Technical notes on backend systems, distributed architecture, and production engineering.">
+	<div class="ec-container">
+
+		<header class="blog-header">
+			<h1 class="blog-title">Engineering</h1>
+			<p class="blog-desc">Technical notes on systems, architecture, and production engineering.</p>
+		</header>
+
+		{allTags.length > 0 && (
+			<nav class="blog-filter" aria-label="Filter by tag">
+				<button class="filter-chip filter-chip--active" data-tag="all">All</button>
+				{allTags.map((tag) => (
+					<button class="filter-chip" data-tag={tag}>{tag}</button>
+				))}
+			</nav>
+		)}
+
+		<div class="blog-list" id="blog-list">
+			{posts.length > 0 ? posts.map((post) => {
+				const slug = post.id.replace(/\.(md|mdx|mdoc)$/, '');
+				return (
+					<article class="blog-post-row" data-tags={JSON.stringify(post.data.tags)}>
+						<a href={`/engineering/${slug}`} class="blog-post-link">
+							<div class="blog-post-meta">
+								<time class="blog-post-date" datetime={post.data.publishedAt.toISOString()}>
+									{post.data.publishedAt.toLocaleDateString('en-US', {
+										year: 'numeric', month: 'short', day: 'numeric',
+									})}
+								</time>
+							</div>
+							<div class="blog-post-content">
+								<h2 class="blog-post-title">{post.data.title}</h2>
+								{post.data.description && (
+									<p class="blog-post-desc">{post.data.description}</p>
+								)}
+								{post.data.tags.length > 0 && (
+									<div class="blog-post-tags">
+										{post.data.tags.map((tag) => (
+											<span class="ec-tag">{tag}</span>
+										))}
+									</div>
+								)}
+							</div>
+							<span class="blog-post-arrow" aria-hidden="true">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+									<path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"
+										stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</span>
+						</a>
+					</article>
+				);
+			}) : (
+				<div class="blog-empty">
+					<p>No posts yet. Check back soon.</p>
+				</div>
+			)}
+		</div>
+
+	</div>
+</BaseLayout>
+
+<script>
+	const chips = document.querySelectorAll<HTMLButtonElement>('.filter-chip');
+	const rows = document.querySelectorAll<HTMLElement>('.blog-post-row');
+
+	// Pre-select tag from URL query param
+	const params = new URLSearchParams(window.location.search);
+	const tagParam = params.get('tag');
+	if (tagParam) {
+		chips.forEach((c) => c.classList.remove('filter-chip--active'));
+		const match = [...chips].find((c) => c.dataset.tag === tagParam);
+		if (match) {
+			match.classList.add('filter-chip--active');
+			rows.forEach((row) => {
+				const postTags: string[] = JSON.parse(row.dataset.tags ?? '[]');
+				row.hidden = !postTags.includes(tagParam);
+			});
+		}
+	}
+
+	chips.forEach((chip) => {
+		chip.addEventListener('click', () => {
+			const tag = chip.dataset.tag ?? 'all';
+			chips.forEach((c) => c.classList.remove('filter-chip--active'));
+			chip.classList.add('filter-chip--active');
+			rows.forEach((row) => {
+				if (tag === 'all') {
+					row.hidden = false;
+				} else {
+					const postTags: string[] = JSON.parse(row.dataset.tags ?? '[]');
+					row.hidden = !postTags.includes(tag);
+				}
+			});
+		});
+	});
+</script>

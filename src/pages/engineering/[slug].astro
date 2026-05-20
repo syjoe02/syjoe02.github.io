@@ -1,0 +1,73 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts
+		.filter((p) => !p.data.draft)
+		.map((p) => ({
+			params: { slug: p.id.replace(/\.(md|mdx|mdoc)$/, '') },
+			props: { post: p },
+		}));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formattedDate = post.data.publishedAt.toLocaleDateString('en-US', {
+	year: 'numeric', month: 'long', day: 'numeric',
+});
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+	<div class="notion-page">
+		<div class="notion-container">
+
+			<nav class="notion-breadcrumb" aria-label="Breadcrumb">
+				<a href="/engineering">Engineering</a>
+				<span aria-hidden="true">/</span>
+				<span>{post.data.title}</span>
+			</nav>
+
+			<header class="notion-header">
+				<h1 class="notion-title">{post.data.title}</h1>
+				<div class="notion-meta">
+					<time datetime={post.data.publishedAt.toISOString()} class="notion-date">
+						{formattedDate}
+					</time>
+					{post.data.tags.length > 0 && (
+						<>
+							<span class="notion-meta-sep" aria-hidden="true">·</span>
+							<div class="notion-tag-list">
+								{post.data.tags.map((tag) => (
+									<a href={`/engineering?tag=${encodeURIComponent(tag)}`} class="ec-tag">{tag}</a>
+								))}
+							</div>
+						</>
+					)}
+				</div>
+				{post.data.description && (
+					<p class="notion-description">{post.data.description}</p>
+				)}
+			</header>
+
+			<hr class="notion-divider" />
+
+			<div class="notion-body">
+				<Content />
+			</div>
+
+			<nav class="notion-footer-nav" aria-label="Post navigation">
+				<a href="/engineering" class="notion-back-link">
+					<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+						<path d="M11 7H3M6 3.5L2.5 7 6 10.5" stroke="currentColor" stroke-width="1.5"
+							stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					Back to Engineering
+				</a>
+			</nav>
+
+		</div>
+	</div>
+</BaseLayout>

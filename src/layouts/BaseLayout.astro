@@ -42,7 +42,6 @@ const fullTitle = title === 'Engineering Compendium'
 
 	<title>{fullTitle}</title>
 
-	<!-- Theme: persist to localStorage -->
 	<script is:inline>
 		(function() {
 			const saved = localStorage.getItem('ec-theme') ?? 'dark';
@@ -51,7 +50,7 @@ const fullTitle = title === 'Engineering Compendium'
 	</script>
 </head>
 <body class="ec-shell">
-	<!-- ===== Top Navigation ===== -->
+
 	<header class="ec-topbar" role="banner">
 		<div class="ec-topbar-inner">
 			<a href="/" class="ec-logo" aria-label="Engineering Compendium home">
@@ -60,60 +59,7 @@ const fullTitle = title === 'Engineering Compendium'
 			</a>
 
 			<nav class="ec-topbar-nav" aria-label="Main navigation">
-				<a href="/projects" class="ec-nav-link">Projects</a>
-
-				<div class="ec-dropdown">
-					<button
-						class="ec-nav-link ec-dropdown-trigger"
-						aria-expanded="false"
-						aria-haspopup="menu"
-					>
-						Explore
-						<svg aria-hidden="true" width="12" height="8" viewBox="0 0 12 8" fill="none">
-							<path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5"
-								stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</button>
-
-					<div class="ec-dropdown-menu" role="menu" aria-label="Explore">
-						<div class="ec-menu-section">
-							<span class="ec-menu-label">Products</span>
-							<a href="/projects#rtfp" class="ec-menu-item" role="menuitem">
-								<span class="ec-item-name">Real-time Financial Platform</span>
-								<span class="ec-item-desc">High-throughput trading infrastructure</span>
-							</a>
-							<a href="/projects#aaa" class="ec-menu-item" role="menuitem">
-								<span class="ec-item-name">AI Architecture Advisor</span>
-								<span class="ec-item-desc">LLM-powered system design assistant</span>
-							</a>
-							<a href="/projects#afd" class="ec-menu-item" role="menuitem">
-								<span class="ec-item-name">AsyncFlow Debugger</span>
-								<span class="ec-item-desc">Async system observability tooling</span>
-							</a>
-						</div>
-						<div class="ec-menu-divider"></div>
-						<div class="ec-menu-section ec-menu-grid">
-							<a href="/distributed" class="ec-menu-item" role="menuitem">
-								<span class="ec-item-name">Distributed Systems</span>
-							</a>
-							<a href="/backend" class="ec-menu-item" role="menuitem">
-								<span class="ec-item-name">Backend Engineering</span>
-							</a>
-							<a href="/ai-infra" class="ec-menu-item" role="menuitem">
-								<span class="ec-item-name">AI Infrastructure</span>
-							</a>
-							<a href="/production" class="ec-menu-item" role="menuitem">
-								<span class="ec-item-name">Production</span>
-							</a>
-							<a href="/architecture" class="ec-menu-item" role="menuitem">
-								<span class="ec-item-name">Architecture</span>
-							</a>
-							<a href="/async-systems" class="ec-menu-item" role="menuitem">
-								<span class="ec-item-name">Async Systems</span>
-							</a>
-						</div>
-					</div>
-				</div>
+				<a href="/engineering" class="ec-nav-link">Engineering</a>
 			</nav>
 
 			<div class="ec-topbar-right">
@@ -146,18 +92,16 @@ const fullTitle = title === 'Engineering Compendium'
 		</div>
 	</header>
 
-	<!-- ===== Page Content ===== -->
 	<main class="ec-main" id="main-content">
 		<slot />
 	</main>
 
-	<!-- ===== Footer ===== -->
 	<footer class="ec-footer" role="contentinfo">
 		<div class="ec-container">
 			<div class="ec-footer-inner">
 				<span>Engineering Compendium &copy; {new Date().getFullYear()}</span>
 				<nav aria-label="Footer navigation" style="display:flex;gap:1.25rem;">
-					<a href="/projects">Projects</a>
+					<a href="/engineering">Engineering</a>
 					<a href="https://github.com/syjoe02" target="_blank" rel="noopener noreferrer">GitHub</a>
 				</nav>
 			</div>
@@ -165,25 +109,6 @@ const fullTitle = title === 'Engineering Compendium'
 	</footer>
 
 	<script>
-		// Dropdown behavior
-		document.querySelectorAll<HTMLButtonElement>('.ec-dropdown-trigger').forEach((trigger) => {
-			const wrapper = trigger.closest('.ec-dropdown');
-			const menu = wrapper?.querySelector('.ec-dropdown-menu');
-			if (!wrapper || !menu) return;
-
-			const open = () => { trigger.setAttribute('aria-expanded', 'true'); menu.classList.add('is-open'); };
-			const close = () => { trigger.setAttribute('aria-expanded', 'false'); menu.classList.remove('is-open'); };
-
-			trigger.addEventListener('click', () =>
-				trigger.getAttribute('aria-expanded') === 'true' ? close() : open()
-			);
-			document.addEventListener('click', (e) => { if (!wrapper.contains(e.target as Node)) close(); });
-			document.addEventListener('keydown', (e) => {
-				if (e.key === 'Escape' && trigger.getAttribute('aria-expanded') === 'true') { close(); trigger.focus(); }
-			});
-		});
-
-		// Theme toggle
 		const toggle = document.getElementById('ec-theme-toggle');
 		toggle?.addEventListener('click', () => {
 			const current = document.documentElement.getAttribute('data-theme') ?? 'dark';
@@ -194,7 +119,6 @@ const fullTitle = title === 'Engineering Compendium'
 	</script>
 
 	<style>
-		/* Sun/moon icon visibility based on theme */
 		[data-theme='dark']  .icon-sun  { display: none; }
 		[data-theme='dark']  .icon-moon { display: block; }
 		[data-theme='light'] .icon-sun  { display: block; }
