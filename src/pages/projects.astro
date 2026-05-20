@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/cards/ProjectCard.astro';
+import { projects } from '../data/projects';
+
+const activeProjects = projects.filter((p) => p.status === 'active');
+const betaProjects = projects.filter((p) => p.status === 'beta');
+const inProgressProjects = projects.filter((p) => p.status === 'in-progress');
+const archivedProjects = projects.filter((p) => p.status === 'archived');
+---
+
+<BaseLayout
+	title="Projects"
+	description="Personal engineering projects: distributed systems, AI infrastructure, and developer tooling."
+>
+	<!-- ===== Page Header ===== -->
+	<div class="ec-page-header">
+		<div class="ec-container">
+			<h1 class="ec-page-header-title">Projects</h1>
+			<p class="ec-page-header-desc">
+				Engineering experiments, tools, and platforms. Each project is a deep
+				exploration of the ideas covered in the articles.
+			</p>
+		</div>
+	</div>
+
+	<!-- ===== Active ===== -->
+	{activeProjects.length > 0 && (
+		<section class="ec-section">
+			<div class="ec-container">
+				<div class="ec-section-header">
+					<h2 class="ec-section-title">Active</h2>
+				</div>
+				<div class="ec-grid-3">
+					{activeProjects.map((p) => (
+						<ProjectCard
+							id={p.id}
+							title={p.title}
+							href={p.articleHref ?? p.href}
+							description={p.description}
+							techStack={p.techStack}
+							status={p.status}
+							gradient={p.gradient}
+						/>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+
+	<!-- ===== Beta ===== -->
+	{betaProjects.length > 0 && (
+		<section class="ec-section">
+			<div class="ec-container">
+				<div class="ec-section-header">
+					<h2 class="ec-section-title">Beta</h2>
+				</div>
+				<div class="ec-grid-3">
+					{betaProjects.map((p) => (
+						<ProjectCard
+							id={p.id}
+							title={p.title}
+							href={p.articleHref ?? p.href}
+							description={p.description}
+							techStack={p.techStack}
+							status={p.status}
+							gradient={p.gradient}
+						/>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+
+	<!-- ===== In Progress ===== -->
+	{inProgressProjects.length > 0 && (
+		<section class="ec-section">
+			<div class="ec-container">
+				<div class="ec-section-header">
+					<h2 class="ec-section-title">In Progress</h2>
+				</div>
+				<div class="ec-grid-3">
+					{inProgressProjects.map((p) => (
+						<ProjectCard
+							id={p.id}
+							title={p.title}
+							href={p.articleHref ?? p.href}
+							description={p.description}
+							techStack={p.techStack}
+							status={p.status}
+							gradient={p.gradient}
+						/>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+
+	<!-- ===== Archived ===== -->
+	{archivedProjects.length > 0 && (
+		<section class="ec-section">
+			<div class="ec-container">
+				<div class="ec-section-header">
+					<h2 class="ec-section-title">Archived</h2>
+				</div>
+				<div class="ec-grid-3">
+					{archivedProjects.map((p) => (
+						<ProjectCard
+							id={p.id}
+							title={p.title}
+							href={p.articleHref ?? p.href}
+							description={p.description}
+							techStack={p.techStack}
+							status={p.status}
+							gradient={p.gradient}
+						/>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+</BaseLayout>

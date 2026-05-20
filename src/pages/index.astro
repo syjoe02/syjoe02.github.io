@@ -1,0 +1,156 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/cards/ArticleCard.astro';
+import ProjectCard from '../components/cards/ProjectCard.astro';
+import { projects } from '../data/projects';
+
+const allDocs = await getCollection('docs');
+
+const docMeta: Record<string, {
+	gradient: string;
+	tags: string[];
+	readingTime: string;
+	category: string;
+}> = {
+	'distributed/index': {
+		gradient: 'ec-gradient-distributed',
+		tags: ['CAP Theorem', 'Raft', 'Consistency'],
+		readingTime: '12 min',
+		category: 'Distributed Systems',
+	},
+	'backend/index': {
+		gradient: 'ec-gradient-backend',
+		tags: ['API Design', 'Caching', 'Database'],
+		readingTime: '10 min',
+		category: 'Backend Engineering',
+	},
+	'ai-infra/index': {
+		gradient: 'ec-gradient-ai-infra',
+		tags: ['Vector DB', 'RAG', 'LLM Serving'],
+		readingTime: '14 min',
+		category: 'AI Infrastructure',
+	},
+	'production/index': {
+		gradient: 'ec-gradient-production',
+		tags: ['Observability', 'On-call', 'Postmortem'],
+		readingTime: '9 min',
+		category: 'Production',
+	},
+	'architecture/index': {
+		gradient: 'ec-gradient-architecture',
+		tags: ['CQRS', 'Event Sourcing', 'Microservices'],
+		readingTime: '11 min',
+		category: 'Architecture',
+	},
+	'async-systems/index': {
+		gradient: 'ec-gradient-async',
+		tags: ['Kafka', 'Backpressure', 'Event-driven'],
+		readingTime: '13 min',
+		category: 'Async Systems',
+	},
+	'debugging/index': {
+		gradient: 'ec-gradient-debugging',
+		tags: ['Tracing', 'Profiling', 'Root Cause'],
+		readingTime: '8 min',
+		category: 'Debugging',
+	},
+};
+
+const topLevelSlugs = new Set(['distributed', 'backend', 'ai-infra', 'production', 'architecture', 'async-systems', 'debugging']);
+const docs = allDocs.filter((d) => {
+	const bare = d.id.replace(/\/index(\.mdx?)?$/, '').replace(/\.mdx?$/, '');
+	return topLevelSlugs.has(bare);
+});
+
+const getMeta = (id: string) => {
+	const bare = id.replace(/\/index(\.mdx?)?$/, '').replace(/\.mdx?$/, '');
+	return docMeta[`${bare}/index`] ?? docMeta[bare] ?? {
+		gradient: 'ec-gradient-default', tags: [], readingTime: '10 min', category: 'Article',
+	};
+};
+
+const sortOrder = ['distributed', 'ai-infra', 'backend', 'production', 'architecture', 'async-systems', 'debugging'];
+const sorted = [...docs].sort((a, b) => {
+	const aKey = a.id.replace(/\/index(\.mdx?)?$/, '').replace(/\.mdx?$/, '');
+	const bKey = b.id.replace(/\/index(\.mdx?)?$/, '').replace(/\.mdx?$/, '');
+	return (sortOrder.indexOf(aKey) ?? 99) - (sortOrder.indexOf(bKey) ?? 99);
+});
+
+const showcaseProjects = projects.slice(0, 3);
+---
+
+<BaseLayout>
+	<!-- ===== Hero ===== -->
+	<section class="ec-hero">
+		<div class="ec-container">
+			<p class="ec-hero-eyebrow">Engineering Compendium</p>
+			<h1 class="ec-hero-title">Systems thinking,<br/>written precisely.</h1>
+			<p class="ec-hero-desc">
+				Deep technical writing on backend systems, distributed architecture,
+				production engineering, and AI infrastructure.
+			</p>
+			<div class="ec-hero-actions">
+				<a href="/distributed" class="ec-btn ec-btn-primary">
+					Browse Topics
+					<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+						<path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5"
+							stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</a>
+				<a href="/projects" class="ec-btn ec-btn-secondary">View Projects</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- ===== Projects Showcase ===== -->
+	<section class="ec-section">
+		<div class="ec-container">
+			<div class="ec-section-header">
+				<h2 class="ec-section-title">Projects</h2>
+				<a href="/projects" class="ec-section-link">View all →</a>
+			</div>
+			<div class="ec-grid-3">
+				{showcaseProjects.map((project) => (
+					<ProjectCard
+						id={project.id}
+						title={project.title}
+						href={project.articleHref ?? project.href}
+						description={project.description}
+						techStack={project.techStack}
+						status={project.status}
+						gradient={project.gradient}
+					/>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- ===== Engineering ===== -->
+	{sorted.length > 0 && (
+		<section class="ec-section">
+			<div class="ec-container">
+				<div class="ec-section-header">
+					<h2 class="ec-section-title">Engineering</h2>
+					<a href="/backend" class="ec-section-link">All topics →</a>
+				</div>
+				<div class="ec-grid-3">
+					{sorted.map((doc) => {
+						const meta = getMeta(doc.id);
+						return (
+							<ArticleCard
+								title={doc.data.title}
+								href={`/${doc.id.replace('/index', '')}`}
+								description={doc.data.description ?? ''}
+								tags={meta.tags}
+								readingTime={meta.readingTime}
+								category={meta.category}
+								gradient={meta.gradient}
+							/>
+						);
+					})}
+				</div>
+			</div>
+		</section>
+	)}
+</BaseLayout>

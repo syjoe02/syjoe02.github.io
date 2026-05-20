@@ -1,0 +1,46 @@
+---
+type Status = 'active' | 'beta' | 'in-progress' | 'archived';
+
+interface Props {
+	id?: string;
+	title: string;
+	href?: string;
+	description: string;
+	techStack?: string[];
+	status: Status;
+	gradient?: string;
+}
+
+const {
+	id,
+	title,
+	href = '#',
+	description,
+	techStack = [],
+	status,
+	gradient = 'ec-gradient-default',
+} = Astro.props;
+
+const statusLabel: Record<Status, string> = {
+	active:      'Active',
+	beta:        'Beta',
+	'in-progress': 'In Progress',
+	archived:    'Archived',
+};
+---
+
+<a href={href} class="ec-project-card" id={id}>
+	<div class={`ec-project-thumb ${gradient}`}></div>
+	<div class="ec-project-body">
+		<div class="ec-project-header">
+			<h3 class="ec-project-title">{title}</h3>
+			<span class={`ec-status ec-status-${status}`}>{statusLabel[status]}</span>
+		</div>
+		<p class="ec-project-desc">{description}</p>
+		{techStack.length > 0 && (
+			<div class="ec-tech-stack">
+				{techStack.map((tech) => <span class="ec-tech-chip">{tech}</span>)}
+			</div>
+		)}
+	</div>
+</a>

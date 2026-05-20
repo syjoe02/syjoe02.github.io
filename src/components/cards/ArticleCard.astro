@@ -1,0 +1,40 @@
+---
+interface Props {
+	title: string;
+	href: string;
+	description: string;
+	tags?: string[];
+	readingTime?: string;
+	category?: string;
+	gradient?: string;
+}
+
+const {
+	title,
+	href,
+	description,
+	tags = [],
+	readingTime,
+	category,
+	gradient = 'ec-gradient-default',
+} = Astro.props;
+---
+
+<a href={href} class="ec-article-card">
+	<div class={`ec-card-cover-gradient ${gradient}`}>
+		<span class="ec-gradient-label">{category ?? 'Article'}</span>
+	</div>
+	<div class="ec-card-body">
+		<div class="ec-card-meta">
+			{category && <span class="ec-card-category">{category}</span>}
+			{readingTime && <span class="ec-card-reading-time">{readingTime}</span>}
+		</div>
+		<h3 class="ec-card-title">{title}</h3>
+		<p class="ec-card-desc">{description}</p>
+		{tags.length > 0 && (
+			<div class="ec-card-tags">
+				{tags.map((tag) => <span class="ec-tag">{tag}</span>)}
+			</div>
+		)}
+	</div>
+</a>

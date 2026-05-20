@@ -1,0 +1,39 @@
+---
+title: Engineering Compendium
+description: A knowledge base on backend systems, distributed architecture, production engineering, and AI infrastructure.
+template: splash
+hero:
+  tagline: Deep technical writing on backend systems, production failures, distributed architecture, and AI infrastructure.
+  actions:
+    - text: Browse Backend Engineering
+      link: /backend/
+      icon: right-arrow
+      variant: primary
+    - text: Production Incidents
+      link: /production/incidents/
+      icon: warning
+      variant: secondary
+---
+
+import { CardGrid, Card } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+  <Card title="Backend Engineering" icon="seti:db">
+    API design, database patterns, HTTP internals, caching strategies.
+  </Card>
+  <Card title="Async Systems" icon="seti:pipeline">
+    Message queues, event-driven architecture, Kafka internals, backpressure.
+  </Card>
+  <Card title="Distributed Systems" icon="random">
+    CAP theorem, consensus algorithms, eventual consistency, partition tolerance.
+  </Card>
+  <Card title="Production & Incidents" icon="warning">
+    Real-world failure analysis, debugging techniques, observability, on-call patterns.
+  </Card>
+  <Card title="AI Infrastructure" icon="star">
+    Vector databases, embedding pipelines, LLM serving, RAG architectures.
+  </Card>
+  <Card title="Architecture Tradeoffs" icon="puzzle">
+    Microservices vs monolith, caching strategies, CQRS, event sourcing.
+  </Card>
+</CardGrid>

@@ -1,0 +1,204 @@
+---
+import '../styles/custom.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'Engineering Compendium',
+	description = 'Deep technical writing on backend systems, distributed architecture, production engineering, and AI infrastructure.',
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://syjoe02.github.io');
+const fullTitle = title === 'Engineering Compendium'
+	? title
+	: `${title} — Engineering Compendium`;
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content={description} />
+	<meta name="generator" content={Astro.generator} />
+
+	<link rel="canonical" href={canonicalUrl} />
+	<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+	<link rel="icon" href="/favicon.ico" sizes="32x32" />
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+	<link rel="manifest" href="/site.webmanifest" />
+
+	<meta property="og:title" content={fullTitle} />
+	<meta property="og:description" content={description} />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={canonicalUrl} />
+	<meta property="og:site_name" content="Engineering Compendium" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content={fullTitle} />
+	<meta name="twitter:description" content={description} />
+
+	<title>{fullTitle}</title>
+
+	<!-- Theme: persist to localStorage -->
+	<script is:inline>
+		(function() {
+			const saved = localStorage.getItem('ec-theme') ?? 'dark';
+			document.documentElement.setAttribute('data-theme', saved);
+		})();
+	</script>
+</head>
+<body class="ec-shell">
+	<!-- ===== Top Navigation ===== -->
+	<header class="ec-topbar" role="banner">
+		<div class="ec-topbar-inner">
+			<a href="/" class="ec-logo" aria-label="Engineering Compendium home">
+				<div class="ec-logo-icon" aria-hidden="true">EC</div>
+				<span>Engineering Compendium</span>
+			</a>
+
+			<nav class="ec-topbar-nav" aria-label="Main navigation">
+				<a href="/projects" class="ec-nav-link">Projects</a>
+
+				<div class="ec-dropdown">
+					<button
+						class="ec-nav-link ec-dropdown-trigger"
+						aria-expanded="false"
+						aria-haspopup="menu"
+					>
+						Explore
+						<svg aria-hidden="true" width="12" height="8" viewBox="0 0 12 8" fill="none">
+							<path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5"
+								stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
+
+					<div class="ec-dropdown-menu" role="menu" aria-label="Explore">
+						<div class="ec-menu-section">
+							<span class="ec-menu-label">Products</span>
+							<a href="/projects#rtfp" class="ec-menu-item" role="menuitem">
+								<span class="ec-item-name">Real-time Financial Platform</span>
+								<span class="ec-item-desc">High-throughput trading infrastructure</span>
+							</a>
+							<a href="/projects#aaa" class="ec-menu-item" role="menuitem">
+								<span class="ec-item-name">AI Architecture Advisor</span>
+								<span class="ec-item-desc">LLM-powered system design assistant</span>
+							</a>
+							<a href="/projects#afd" class="ec-menu-item" role="menuitem">
+								<span class="ec-item-name">AsyncFlow Debugger</span>
+								<span class="ec-item-desc">Async system observability tooling</span>
+							</a>
+						</div>
+						<div class="ec-menu-divider"></div>
+						<div class="ec-menu-section ec-menu-grid">
+							<a href="/distributed" class="ec-menu-item" role="menuitem">
+								<span class="ec-item-name">Distributed Systems</span>
+							</a>
+							<a href="/backend" class="ec-menu-item" role="menuitem">
+								<span class="ec-item-name">Backend Engineering</span>
+							</a>
+							<a href="/ai-infra" class="ec-menu-item" role="menuitem">
+								<span class="ec-item-name">AI Infrastructure</span>
+							</a>
+							<a href="/production" class="ec-menu-item" role="menuitem">
+								<span class="ec-item-name">Production</span>
+							</a>
+							<a href="/architecture" class="ec-menu-item" role="menuitem">
+								<span class="ec-item-name">Architecture</span>
+							</a>
+							<a href="/async-systems" class="ec-menu-item" role="menuitem">
+								<span class="ec-item-name">Async Systems</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</nav>
+
+			<div class="ec-topbar-right">
+				<a
+					href="https://github.com/syjoe02"
+					class="ec-icon-btn"
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label="GitHub"
+				>
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+						<path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+					</svg>
+				</a>
+
+				<button
+					class="ec-icon-btn ec-theme-btn"
+					aria-label="Toggle theme"
+					id="ec-theme-toggle"
+				>
+					<svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+						<circle cx="12" cy="12" r="4"/>
+						<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+					</svg>
+					<svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+						<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+					</svg>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<!-- ===== Page Content ===== -->
+	<main class="ec-main" id="main-content">
+		<slot />
+	</main>
+
+	<!-- ===== Footer ===== -->
+	<footer class="ec-footer" role="contentinfo">
+		<div class="ec-container">
+			<div class="ec-footer-inner">
+				<span>Engineering Compendium &copy; {new Date().getFullYear()}</span>
+				<nav aria-label="Footer navigation" style="display:flex;gap:1.25rem;">
+					<a href="/projects">Projects</a>
+					<a href="https://github.com/syjoe02" target="_blank" rel="noopener noreferrer">GitHub</a>
+				</nav>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+		// Dropdown behavior
+		document.querySelectorAll<HTMLButtonElement>('.ec-dropdown-trigger').forEach((trigger) => {
+			const wrapper = trigger.closest('.ec-dropdown');
+			const menu = wrapper?.querySelector('.ec-dropdown-menu');
+			if (!wrapper || !menu) return;
+
+			const open = () => { trigger.setAttribute('aria-expanded', 'true'); menu.classList.add('is-open'); };
+			const close = () => { trigger.setAttribute('aria-expanded', 'false'); menu.classList.remove('is-open'); };
+
+			trigger.addEventListener('click', () =>
+				trigger.getAttribute('aria-expanded') === 'true' ? close() : open()
+			);
+			document.addEventListener('click', (e) => { if (!wrapper.contains(e.target as Node)) close(); });
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape' && trigger.getAttribute('aria-expanded') === 'true') { close(); trigger.focus(); }
+			});
+		});
+
+		// Theme toggle
+		const toggle = document.getElementById('ec-theme-toggle');
+		toggle?.addEventListener('click', () => {
+			const current = document.documentElement.getAttribute('data-theme') ?? 'dark';
+			const next = current === 'dark' ? 'light' : 'dark';
+			document.documentElement.setAttribute('data-theme', next);
+			localStorage.setItem('ec-theme', next);
+		});
+	</script>
+
+	<style>
+		/* Sun/moon icon visibility based on theme */
+		[data-theme='dark']  .icon-sun  { display: none; }
+		[data-theme='dark']  .icon-moon { display: block; }
+		[data-theme='light'] .icon-sun  { display: block; }
+		[data-theme='light'] .icon-moon { display: none; }
+	</style>
+</body>
+</html>
