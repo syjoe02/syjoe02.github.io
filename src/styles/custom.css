@@ -368,6 +368,7 @@ a.ec-tag:hover {
    ============================================================ */
 .blog-header {
 	padding: 3rem 0 1rem;
+	text-align: center;
 }
 
 .blog-title {
@@ -375,14 +376,7 @@ a.ec-tag:hover {
 	font-weight: 800;
 	letter-spacing: -0.04em;
 	color: var(--ec-text);
-	margin: 0 0 0.5rem;
-}
-
-.blog-desc {
-	font-size: 1.0625rem;
-	color: var(--ec-text-muted);
 	margin: 0;
-	line-height: 1.65;
 }
 
 .blog-list {
