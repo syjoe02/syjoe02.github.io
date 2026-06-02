@@ -87,7 +87,7 @@ flowchart TD
     style V fill:#ffccc,stroke:#ff0000,stroke-width:2px
 ```
 
-### Distinction
+### Terminology
 
 - Django ORM : an abstraction layer that allows developers to interact with the database using Python objects instead of writing raw SQL query
 - Codebase : the overall code structure

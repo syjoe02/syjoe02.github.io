@@ -57,10 +57,10 @@ flowchart TD
     L --> M[Gemini Generation]
 ```
 
-### Distinction
+### Terminology
 
 - Query : the user's question
--  Retrieval : the process of finding relevant documents
+- Retrieval : the process of finding relevant documents
 - Context : the retrieved result used as reference for generation
 - Fusion : the process of combining multiple retrieval results into a single final ranking
 
