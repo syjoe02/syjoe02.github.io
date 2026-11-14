@@ -1,0 +1,9 @@
+{
+ "Aug 2026": {
+  "ctx K/step": 211,
+  "out/turn": 18900,
+  "agents/session": 1.36,
+  "tests %": 23,
+  "tool_result KB/turn": 10
+ }
+}
