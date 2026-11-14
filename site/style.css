@@ -117,11 +117,11 @@ section { margin-top: 72px; }
 .fractions::before, .fractions::after, .fractions li::before { content: ""; position: absolute; }
 .pipeline li:not(:last-child)::after, .fractions::before, .fractions::after {
   height: 2px; background: repeating-linear-gradient(90deg, var(--accent) 0 6px, transparent 6px 12px); background-size: 12px 2px;
-  animation: march-right 0.8s linear infinite;
+  animation: march-right 0.8s linear 6; animation-play-state: var(--flow, paused);
 }
 .pipeline li:nth-child(4)::before, .fractions li::before {
   width: 2px; left: calc(50% - 1px); background: repeating-linear-gradient(180deg, var(--accent) 0 6px, transparent 6px 12px); background-size: 2px 12px;
-  animation: march-down 0.8s linear infinite;
+  animation: march-down 0.8s linear 6; animation-play-state: var(--flow, paused);
 }
 .pipeline li:not(:last-child)::after { left: 100%; top: calc(50% - 1px); width: 28px; }
 /* aggregate() drops into a bus that fans out to the five fraction cards */
@@ -133,6 +133,8 @@ section { margin-top: 72px; }
 .pipeline li + li > code::before, .fractions li > p::before { content: ""; position: absolute; border: 5px solid transparent; }
 .pipeline li + li > code::before { left: -11px; top: calc(50% - 5px); border-left: 7px solid var(--accent); }
 .fractions li > p::before { top: -11px; left: calc(50% - 5px); border-top: 7px solid var(--accent); }
+/* app.js adds .in-view when the section is on screen; 6 runs of 0.8 s stop before 5 s (WCAG 2.2.2) */
+.in-view { --flow: running; }
 @keyframes march-right { to { background-position: 12px 0; } }
 @keyframes march-left { to { background-position: -12px 0; } }
 @keyframes march-down { to { background-position: 0 12px; } }
@@ -140,6 +142,8 @@ section { margin-top: 72px; }
   .pipeline li:not(:last-child)::after, .pipeline li:nth-child(4)::before,
   .fractions::before, .fractions::after, .fractions li::before { animation: none; }
 }
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 footer { margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--gridline); color: var(--text-muted); font-size: 0.875rem; }
 footer p { margin: 4px 0; }

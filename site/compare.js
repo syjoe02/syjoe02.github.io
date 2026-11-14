@@ -1,10 +1,11 @@
 // Turns two `metrics.py --json` tables ({ "<period>": { "<metric>": value } }) into Before/After rows.
 
 // `scale`: metrics.py writes context in thousands; tokens let it format as 172K like out/turn.
+// `why`: documented cause from the audit, shown only while the metric is still better.
 export const METRICS = [
   { key: 'ctx K/step', label: 'Context read per response', unit: 'tokens', scale: 1000, lowerIsBetter: true },
-  { key: 'out/turn', label: 'Output tokens per turn', unit: 'tokens', lowerIsBetter: true },
-  { key: 'agents/session', label: 'Subagent dispatches per session', unit: '', lowerIsBetter: true },
+  { key: 'out/turn', label: 'Output tokens per turn', unit: 'tokens', lowerIsBetter: true, why: 'Fell after dropping a per-reply footer' },
+  { key: 'agents/session', label: 'Subagent dispatches per session', unit: '', lowerIsBetter: true, why: 'Fell after removing nonexistent agents' },
   { key: 'tests %', label: 'Sessions that ran tests', unit: '%', lowerIsBetter: false },
   { key: 'tool_result KB/turn', label: 'Tool output per turn', unit: 'KB', lowerIsBetter: true },
 ];
@@ -33,10 +34,11 @@ function trendOf(changePct, lowerIsBetter) {
 }
 
 export function buildComparison(before, after) {
-  return METRICS.map(({ key, label, unit, scale, lowerIsBetter }) => {
+  return METRICS.map(({ key, label, unit, scale, lowerIsBetter, why }) => {
     const b = num(before, key, scale);
     const a = num(after, key, scale);
     const changePct = b === null || a === null || b === 0 ? null : Math.round(((a - b) / b) * 100);
-    return { key, label, unit, before: b, after: a, changePct, trend: trendOf(changePct, lowerIsBetter) };
+    const trend = trendOf(changePct, lowerIsBetter);
+    return { key, label, unit, before: b, after: a, changePct, trend, note: (trend === 'better' && why) || null };
   });
 }

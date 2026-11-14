@@ -1,10 +1,4 @@
-import { METRICS, firstPeriod, lastPeriod, buildComparison } from './compare.js';
-
-// Documented causes from the audit; metrics without one get no note.
-const WHY = {
-  'out/turn': 'Fell after dropping a per-reply footer',
-  'agents/session': 'Fell after removing nonexistent agents',
-};
+import { firstPeriod, lastPeriod, buildComparison } from './compare.js';
 
 const compact = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 2 });
 
@@ -28,10 +22,14 @@ function el(tag, className, text) {
 
 const withUnit = (v, unit) => (unit === '%' ? `${compact.format(v)}%` : `${compact.format(v)}${unit ? ` ${unit}` : ''}`);
 
-function deltaText(row) {
-  if (row.changePct === null) return '';
-  if (row.changePct === 0) return 'no change';
-  return `${row.changePct < 0 ? '▼' : '▲'} ${Math.abs(row.changePct)}%`;
+// The arrow is hidden from screen readers, which would read it as a shape name; they hear "down 18%".
+function appendDelta(parent, row) {
+  if (row.changePct === null) return;
+  if (row.changePct === 0) return parent.append('no change');
+  const down = row.changePct < 0;
+  const arrow = el('span', null, down ? '▼' : '▲');
+  arrow.setAttribute('aria-hidden', 'true');
+  parent.append(arrow, el('span', 'sr-only', down ? 'down' : 'up'), ` ${Math.abs(row.changePct)}%`);
 }
 
 function renderTiles(rows, before, after) {
@@ -44,7 +42,8 @@ function renderTiles(rows, before, after) {
     if (row.unit && row.unit !== '%') value.append(el('span', 'tile-unit', row.unit));
     tile.append(value);
     if (row.trend) {
-      const delta = el('p', `delta ${row.trend}`, deltaText(row));
+      const delta = el('p', `delta ${row.trend}`);
+      appendDelta(delta, row);
       delta.append(el('span', 'delta-period', ` vs ${before.name}`));
       tile.append(delta);
     }
@@ -81,11 +80,13 @@ function renderChart(rows, before, after) {
     const max = Math.max(row.before ?? 0, row.after ?? 0);
     const r = el('div', 'row');
     const label = el('div', 'row-label', row.label);
-    if (WHY[row.key]) label.append(el('span', 'row-why', WHY[row.key]));
+    if (row.note) label.append(el('span', 'row-why', row.note));
     const bars = el('div', 'bars');
     bars.append(barLine('before', row.before, max, row.unit, `Before (${before.name})`));
     if (after) bars.append(barLine('after', row.after, max, row.unit, `After (${after.name})`));
-    r.append(label, bars, el('div', `row-change ${row.trend ?? ''}`, deltaText(row)));
+    const change = el('div', `row-change ${row.trend ?? ''}`);
+    appendDelta(change, row);
+    r.append(label, bars, change);
     chart.append(r);
   }
 }
@@ -112,4 +113,16 @@ async function main() {
   renderLatestNote(after);
 }
 
+// Start the flow animation once its section is on screen; CSS stops it after ~5 s (WCAG 2.2.2).
+function playFlowWhenVisible() {
+  const section = document.getElementById('measured')?.closest('section');
+  if (!section || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(([entry], observer) => {
+    if (!entry.isIntersecting) return;
+    section.classList.add('in-view');
+    observer.disconnect();
+  }, { threshold: 0.4 }).observe(section);
+}
+
 main();
+playFlowWhenVisible();

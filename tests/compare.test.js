@@ -23,6 +23,15 @@ test('context is reported in tokens so it formats as 172K', () => {
   assert.equal(rows['ctx K/step'].unit, 'tokens');
 });
 
+test('a documented cause shows only when the metric improved', () => {
+  const better = byKey(buildComparison(before, after));
+  assert.equal(better['agents/session'].note, 'Fell after removing nonexistent agents');
+  assert.equal(better['ctx K/step'].note, null);
+  const worse = byKey(buildComparison(before, { name: 'a', values: { ...after.values, 'agents/session': 38.11 } }));
+  assert.equal(worse['agents/session'].trend, 'worse');
+  assert.equal(worse['agents/session'].note, null);
+});
+
 test('uses the last period of a multi-period table', () => {
   const table = { 'wk 10-05': { 'ctx K/step': 180 }, 'wk 10-12': { 'ctx K/step': 150 } };
   assert.equal(lastPeriod(table).name, 'wk 10-12');
