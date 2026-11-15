@@ -68,21 +68,26 @@
 
   <section aria-labelledby="measured">
     <h2 id="measured">How it's measured</h2>
-    <p class="section-lead"><code>metrics.py</code> counts events in each transcript, then divides.</p>
+    <p class="section-lead"><code>metrics.py</code> counts events in each transcript, then turns the counts into rates.</p>
     <ol class="pipeline">
       <li><code>load()</code><span>find sessions, 3+ turns</span></li>
       <li><code>parse()</code><span>count events</span></li>
       <li><code>parse_<wbr>periods()</code><span>group by date</span></li>
-      <li><code>aggregate()</code><span>divide</span></li>
+      <li><code>aggregate()</code><span>divide or median</span></li>
       <li><code>--json</code><span>write for this page</span></li>
     </ol>
-    <ul class="fractions">
-      <li><p>Context read per response</p><span class="num">tokens read</span><span class="den">steps</span></li>
-      <li><p>Output tokens per turn</p><span class="num">tokens written</span><span class="den">user turns</span></li>
-      <li><p>Subagent dispatches per session</p><span class="num">Agent calls</span><span class="den">sessions</span></li>
-      <li><p>Sessions that ran tests</p><span class="num">sessions with a test</span><span class="den">sessions</span></li>
-      <li><p>Tool output per turn</p><span class="num">tool output size</span><span class="den">user turns</span></li>
-    </ul>
+    <div class="formulas">
+      <p class="formulas-key"><span>Rate</span><span><span><span class="part">count</span>per session, in <code>parse()</code></span><span><span class="op">÷</span>sums per period, in <code>aggregate()</code></span></span></p>
+      <dl>
+        <div><dt>Context read per response</dt><dd><span class="part">tokens read</span><span class="op">÷</span><span class="part">model responses</span></dd></div>
+        <div><dt>Output tokens per turn</dt><dd><span class="part">tokens written</span><span class="op">÷</span><span class="part">user turns</span></dd></div>
+        <div><dt>Subagent dispatches per session</dt><dd><span class="part">Agent calls</span><span class="op">÷</span><span class="part">sessions</span></dd></div>
+        <div><dt>Sessions that ran tests</dt><dd><span class="part">sessions with a test</span><span class="op">÷</span><span class="part">sessions</span></dd></div>
+        <div><dt>Tool output per turn</dt><dd><span class="part">tool output size</span><span class="op">÷</span><span class="part">user turns</span></dd></div>
+        <div><dt>Context at session start</dt><dd><span class="op">median of</span><span class="part">first-response context</span></dd></div>
+        <div><dt>Responses per turn</dt><dd><span class="part">model responses</span><span class="op">÷</span><span class="part">user turns</span></dd></div>
+      </dl>
+    </div>
   </section>
 
   <footer>
