@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Self-tuned AI agents · syjoe02</title>
+  <meta name="description" content="How I wire rules, skills, hooks and subagents around Claude Code, and what measurably changed.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBY917WSKE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TBY917WSKE');
+  </script>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <h1>Self-tuned AI agents</h1>
+    <p class="lead">
+      I build the layer around Claude Code: rules, skills, hooks and subagents.
+      A piece stays only if the transcripts show it works.
+    </p>
+    <div class="tiles" id="tiles" aria-live="polite"></div>
+    <p class="note" id="tiles-note"></p>
+  </header>
+
+  <section aria-labelledby="architecture">
+    <h2 id="architecture">Harness architecture</h2>
+    <p class="section-lead">The closer to Claude, the more often it loads, so the smaller it stays.</p>
+    <div class="layer">
+      <p class="layer-head"><span class="when">On dispatch</span>Subagents</p>
+      <ul class="chips"><li>codebase search</li><li>security review</li></ul>
+      <div class="layer">
+        <p class="layer-head"><span class="when">On an event</span>Hooks</p>
+        <ul class="chips"><li>auto-format on edit</li><li>secret scan before commit</li><li>test cleanup reminder</li><li>reply language check</li></ul>
+        <div class="layer">
+          <p class="layer-head"><span class="when">On demand</span>Skills, commands, docs</p>
+          <ul class="chips"><li>code walkthroughs</li><li>past fixes in plans</li><li>search past findings</li><li>save notes to docs</li><li>library docs</li></ul>
+          <div class="layer">
+            <p class="layer-head"><span class="when">Every turn</span>Rules, 338 lines</p>
+            <ul class="chips"><li>shared coding rules</li><li>per-machine settings</li><li>minimal-change rules</li></ul>
+            <div class="core">
+              <svg class="mascot" viewBox="1 0 16 10" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="0" width="12" height="2"/><rect x="3" y="2" width="2" height="2"/><rect x="6" y="2" width="6" height="2"/><rect x="13" y="2" width="2" height="2"/><rect x="1" y="4" width="16" height="2"/><rect x="3" y="6" width="12" height="2"/><rect x="4" y="8" width="1" height="2"/><rect x="6" y="8" width="1" height="2"/><rect x="11" y="8" width="1" height="2"/><rect x="13" y="8" width="1" height="2"/></svg>
+              <span>Claude Code</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note"><code>install.sh</code> links every layer into <code>~/.claude</code>.</p>
+  </section>
+
+  <section aria-labelledby="impact">
+    <h2 id="impact">Before / After</h2>
+    <p class="section-lead">Rates from Claude Code session transcripts.</p>
+    <div class="legend" id="legend"></div>
+    <div class="chart" id="chart"></div>
+    <p class="note">
+      Before: audit of 128 sessions, 2026-08-07 → 09-17. <span id="latest-note"></span>
+    </p>
+  </section>
+
+  <section aria-labelledby="measured">
+    <h2 id="measured">How it's measured</h2>
+    <p class="section-lead"><code>metrics.py</code> counts events in each transcript, then divides.</p>
+    <ol class="pipeline">
+      <li><code>load()</code><span>find sessions, 3+ turns</span></li>
+      <li><code>parse()</code><span>count events</span></li>
+      <li><code>parse_<wbr>periods()</code><span>group by date</span></li>
+      <li><code>aggregate()</code><span>divide</span></li>
+      <li><code>--json</code><span>write for this page</span></li>
+    </ol>
+    <ul class="fractions">
+      <li><p>Context read per response</p><span class="num">tokens read</span><span class="den">steps</span></li>
+      <li><p>Output tokens per turn</p><span class="num">tokens written</span><span class="den">user turns</span></li>
+      <li><p>Subagent dispatches per session</p><span class="num">Agent calls</span><span class="den">sessions</span></li>
+      <li><p>Sessions that ran tests</p><span class="num">sessions with a test</span><span class="den">sessions</span></li>
+      <li><p>Tool output per turn</p><span class="num">tool output size</span><span class="den">user turns</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p><a href="https://github.com/syjoe02">github.com/syjoe02</a></p>
+  </footer>
+</main>
+</body>
+</html>
