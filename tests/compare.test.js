@@ -9,11 +9,24 @@ const byKey = (rows) => Object.fromEntries(rows.map((r) => [r.key, r]));
 const before = { name: 'b', values: { 'ctx K/step': 211, 'out/turn': 18900, 'agents/session': 1.36, 'tests %': 23, 'tool_result KB/turn': 10 } };
 const after = { name: 'a', values: { 'ctx K/step': 172, 'out/turn': 13500, 'agents/session': 0.54, 'tests %': 46, 'tool_result KB/turn': 10 } };
 
+// Fixtures, not data/*.json: a new measurement must not fail the deploy.
 test('recorded audit values give the published changes', () => {
-  const rows = byKey(buildComparison(firstPeriod(load('baseline.json')), lastPeriod(load('metrics.json'))));
+  const rows = byKey(buildComparison(before, after));
   const pct = Object.fromEntries(METRICS.map((m) => [m.key, rows[m.key].changePct]));
   assert.deepEqual(pct, { 'ctx K/step': -18, 'out/turn': -29, 'agents/session': -60, 'tests %': 100, 'tool_result KB/turn': 0 });
   assert.deepEqual(METRICS.map((m) => rows[m.key].trend), ['better', 'better', 'better', 'better', 'flat']);
+});
+
+test('shipped data files give a Before and an After with every tracked metric', () => {
+  for (const period of [firstPeriod(load('baseline.json')), lastPeriod(load('metrics.json'))]) {
+    assert.ok(period, 'no usable period');
+    for (const { key } of METRICS) assert.ok(Number.isFinite(period.values[key]), `${period.name}: ${key} missing`);
+  }
+});
+
+test('a period without any tracked measurement counts as missing', () => {
+  assert.equal(lastPeriod({ 'Sep 2026': { 'ctx K/step': null, 'model mix': 'opus:80%' } }), null);
+  assert.equal(lastPeriod({ 'Sep 2026': { 'tests %': 46 } })?.name, 'Sep 2026');
 });
 
 test('context is reported in tokens so it formats as 172K', () => {

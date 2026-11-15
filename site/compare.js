@@ -11,11 +11,13 @@ export const METRICS = [
 ];
 
 const isObject = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
+// A period with no finite tracked value would render as all dashes, so treat it as missing.
+const hasMeasurement = (values) => isObject(values) && METRICS.some(({ key }) => Number.isFinite(values[key]));
 
 function periods(table) {
   if (!isObject(table)) return [];
   return Object.entries(table)
-    .filter(([, values]) => isObject(values))
+    .filter(([, values]) => hasMeasurement(values))
     .map(([name, values]) => ({ name, values }));
 }
 
