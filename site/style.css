@@ -101,47 +101,51 @@ section { margin-top: 72px; }
 .row-change.flat { color: var(--text-muted); font-weight: 400; }
 
 
-/* Measurement flow: dashes march the way the data moves (gap 28px shared so columns line up) */
+/* Measurement flow: dashes march the way the data moves (gap 28px, so the drop line below meets aggregate()) */
 .pipeline { list-style: none; margin: 0 0 48px; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px; }
-.pipeline li { position: relative; background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.pipeline li { position: relative; background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 14px 12px; }
 .pipeline code { display: inline-block; margin-bottom: 6px; }
 .pipeline span { display: block; color: var(--text-secondary); font-size: 0.875rem; }
 
-.fractions { position: relative; list-style: none; margin: 0; padding: 40px 0 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px; }
-.fractions li { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 14px 12px 16px; }
-.fractions p { margin: 0 0 12px; font-size: 0.875rem; font-weight: 600; flex: 1; }
-.fractions .num, .fractions .den { font-size: 0.875rem; color: var(--text-secondary); padding: 2px 6px; }
-.fractions .num { border-bottom: 2px solid var(--text-muted); }
-
-.pipeline li:not(:last-child)::after, .pipeline li:nth-child(4)::before,
-.fractions::before, .fractions::after, .fractions li::before { content: ""; position: absolute; }
-.pipeline li:not(:last-child)::after, .fractions::before, .fractions::after {
-  height: 2px; background: repeating-linear-gradient(90deg, var(--accent) 0 6px, transparent 6px 12px); background-size: 12px 2px;
+.pipeline li:not(:last-child)::after, .pipeline li:nth-child(4)::before { content: ""; position: absolute; }
+.pipeline li:not(:last-child)::after {
+  left: 100%; top: calc(50% - 1px); width: 28px; height: 2px;
+  background: repeating-linear-gradient(90deg, var(--accent) 0 6px, transparent 6px 12px); background-size: 12px 2px;
   animation: march-right 0.8s linear 6; animation-play-state: var(--flow, paused);
 }
-.pipeline li:nth-child(4)::before, .fractions li::before {
-  width: 2px; left: calc(50% - 1px); background: repeating-linear-gradient(180deg, var(--accent) 0 6px, transparent 6px 12px); background-size: 2px 12px;
+/* aggregate() drops into the formula card: 48px gap less the 7px arrowhead, plus its 1px border */
+.pipeline li:nth-child(4)::before {
+  top: 100%; left: calc(50% - 1px); width: 2px; height: 42px;
+  background: repeating-linear-gradient(180deg, var(--accent) 0 6px, transparent 6px 12px); background-size: 2px 12px;
   animation: march-down 0.8s linear 6; animation-play-state: var(--flow, paused);
 }
-.pipeline li:not(:last-child)::after { left: 100%; top: calc(50% - 1px); width: 28px; }
-/* aggregate() drops into a bus that fans out to the five fraction cards */
-.pipeline li:nth-child(4)::before { top: 100%; height: 68px; }
-.fractions::before { top: 20px; left: calc((100% - 112px) / 10); width: calc((100% - 112px) * 3 / 5 + 84px); animation-name: march-left; }
-.fractions::after { top: 20px; left: calc((100% - 112px) * 7 / 10 + 84px); width: calc((100% - 112px) / 5 + 28px); }
-.fractions li::before { top: -18px; height: 18px; }
 /* Arrowheads where a line enters a box; they show direction even when motion is reduced */
-.pipeline li + li > code::before, .fractions li > p::before { content: ""; position: absolute; border: 5px solid transparent; }
+.pipeline li + li > code::before, .formulas::before { content: ""; position: absolute; border: 5px solid transparent; }
 .pipeline li + li > code::before { left: -11px; top: calc(50% - 5px); border-left: 7px solid var(--accent); }
-.fractions li > p::before { top: -11px; left: calc(50% - 5px); border-top: 7px solid var(--accent); }
+/* Centre of the 4th of five 28px-gap columns, measured inside the card's 1px border */
+.formulas::before { top: -8px; left: calc((100% - 110px) * 7 / 10 + 78px); border-top: 7px solid var(--accent); }
 /* app.js adds .in-view when the section is on screen; 6 runs of 0.8 s stop before 5 s (WCAG 2.2.2) */
 .in-view { --flow: running; }
 @keyframes march-right { to { background-position: 12px 0; } }
-@keyframes march-left { to { background-position: -12px 0; } }
 @keyframes march-down { to { background-position: 0 12px; } }
 @media (prefers-reduced-motion: reduce) {
-  .pipeline li:not(:last-child)::after, .pipeline li:nth-child(4)::before,
-  .fractions::before, .fractions::after, .fractions li::before { animation: none; }
+  .pipeline li:not(:last-child)::after, .pipeline li:nth-child(4)::before { animation: none; }
 }
+
+/* Same card and 220px label column as the Before / After chart, so a row there lines up with its formula here */
+.formulas { position: relative; background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 4px 20px 8px; }
+.formulas-key, .formulas dl > div { display: grid; grid-template-columns: 220px 1fr; gap: 16px; align-items: center; }
+.formulas-key { margin: 0; padding: 12px 0; color: var(--text-muted); font-size: 0.8125rem; }
+.formulas-key > span:last-child { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+.formulas dl { margin: 0; }
+.formulas dl > div { padding: 12px 0; border-top: 1px solid var(--gridline); }
+.formulas dt { font-size: 0.9375rem; }
+.formulas dd { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+/* A grey chip is a count parse() keeps per session; blue is what aggregate() does with the period's sums */
+.part { font-size: 0.875rem; background: var(--code-bg); border-radius: 6px; padding: 2px 10px; white-space: nowrap; }
+.op { color: var(--accent); font-weight: 600; }
+.formulas-key .part { font-size: 0.8125rem; color: var(--text-secondary); margin-right: 6px; }
+.formulas-key .op { margin-right: 6px; }
 
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
@@ -159,8 +163,9 @@ footer p { margin: 4px 0; }
     background: repeating-linear-gradient(180deg, var(--accent) 0 6px, transparent 6px 12px); background-size: 2px 12px; animation-name: march-down;
   }
   .pipeline li + li > code::before { left: calc(50% - 5px); top: -11px; border-left: 5px solid transparent; border-top: 7px solid var(--accent); }
-  .pipeline li:nth-child(4)::before, .fractions::before, .fractions::after, .fractions li::before, .fractions li > p::before { display: none; }
-  .fractions { padding-top: 0; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .pipeline li:nth-child(4)::before, .formulas::before, .formulas-key > span:first-child { display: none; }
+  .formulas { padding: 4px 14px 6px; }
+  .formulas-key, .formulas dl > div { grid-template-columns: 1fr; gap: 6px; }
   .row { grid-template-columns: 1fr 56px; }
   .row-label { grid-column: 1 / -1; }
 }

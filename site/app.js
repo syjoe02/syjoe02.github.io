@@ -21,6 +21,8 @@ function el(tag, className, text) {
 }
 
 const withUnit = (v, unit) => (unit === '%' ? `${compact.format(v)}%` : `${compact.format(v)}${unit ? ` ${unit}` : ''}`);
+// Tile form: the unit sits in its own span, so only % stays attached to the number.
+const short = (v, unit) => compact.format(v) + (unit === '%' ? '%' : '');
 
 // The arrow is hidden from screen readers, which would read it as a shape name; they hear "down 18%".
 function appendDelta(parent, row) {
@@ -38,13 +40,13 @@ function renderTiles(rows, before, after) {
     const shown = after ? row.after : row.before;
     const tile = el('div', 'tile');
     tile.append(el('p', 'tile-label', row.label));
-    const value = el('p', 'tile-value', shown === null ? '–' : compact.format(shown) + (row.unit === '%' ? '%' : ''));
+    const value = el('p', 'tile-value', shown === null ? '–' : short(shown, row.unit));
     if (row.unit && row.unit !== '%') value.append(el('span', 'tile-unit', row.unit));
     tile.append(value);
     if (row.trend) {
       const delta = el('p', `delta ${row.trend}`);
       appendDelta(delta, row);
-      delta.append(el('span', 'delta-period', ` vs ${before.name}`));
+      delta.append(el('span', 'delta-period', ` from ${short(row.before, row.unit)}`));
       tile.append(delta);
     }
     tiles.append(tile);
