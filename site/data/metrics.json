@@ -1,9 +1,14 @@
 {
- "Sep 2026": {
-  "ctx K/step": 172,
-  "out/turn": 13500,
-  "agents/session": 0.54,
-  "tests %": 46,
-  "tool_result KB/turn": 10
+ "Nov 1-18": {
+  "sessions": 23,
+  "base ctx K cli": 59,
+  "base ctx K desktop": 90,
+  "ctx K/step": 286,
+  "steps/turn": 6.4,
+  "read K/turn": 2031,
+  "out/turn": 7999,
+  "agents/session": 1.3,
+  "tests %": 30,
+  "tool_result KB/turn": 10.9
  }
 }

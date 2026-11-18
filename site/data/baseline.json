@@ -1,9 +1,14 @@
 {
  "Aug 2026": {
-  "ctx K/step": 211,
-  "out/turn": 18900,
-  "agents/session": 1.36,
+  "sessions": 57,
+  "base ctx K cli": null,
+  "base ctx K desktop": 64,
+  "ctx K/step": 240,
+  "steps/turn": 6.4,
+  "read K/turn": 1593,
+  "out/turn": 9736,
+  "agents/session": 1.49,
   "tests %": 23,
-  "tool_result KB/turn": 10
+  "tool_result KB/turn": 12.1
  }
 }

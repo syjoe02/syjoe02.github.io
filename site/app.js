@@ -1,4 +1,4 @@
-import { firstPeriod, lastPeriod, buildComparison } from './compare.js';
+import { firstPeriod, lastPeriod, buildComparison, periodNote } from './compare.js';
 
 const compact = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 2 });
 
@@ -93,11 +93,9 @@ function renderChart(rows, before, after) {
   }
 }
 
-function renderLatestNote(after) {
-  const note = document.getElementById('latest-note');
-  if (!after) note.textContent = 'Latest measurement unavailable.';
-  else if (Number.isFinite(after.values.sessions)) note.textContent = `After (${after.name}): ${after.values.sessions} sessions.`;
-  else note.textContent = `After (${after.name}): same audit, split date not recorded.`;
+function renderPeriodNote(before, after) {
+  const latest = after ? periodNote('After', after) : 'Latest measurement unavailable.';
+  document.getElementById('period-note').textContent = `${periodNote('Before', before)} ${latest}`;
 }
 
 async function main() {
@@ -112,7 +110,7 @@ async function main() {
   renderTiles(rows, before, after);
   renderLegend(before, after);
   renderChart(rows, before, after);
-  renderLatestNote(after);
+  renderPeriodNote(before, after);
 }
 
 // Start the flow animation once its section is on screen; CSS stops it after ~5 s (WCAG 2.2.2).
