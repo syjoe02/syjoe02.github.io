@@ -5,7 +5,7 @@
 export const METRICS = [
   { key: 'ctx K/step', label: 'Context read per response', unit: 'tokens', scale: 1000, lowerIsBetter: true },
   { key: 'out/turn', label: 'Output tokens per turn', unit: 'tokens', lowerIsBetter: true, why: 'Fell after dropping a per-reply footer' },
-  { key: 'agents/session', label: 'Subagent dispatches per session', unit: '', lowerIsBetter: true, why: 'Fell after removing nonexistent agents' },
+  { key: 'agents/session', label: 'Subagent dispatches per session', unit: '', lowerIsBetter: true },
   { key: 'tests %', label: 'Sessions that ran tests', unit: '%', lowerIsBetter: false },
   { key: 'tool_result KB/turn', label: 'Tool output per turn', unit: 'KB', lowerIsBetter: true },
 ];
@@ -23,6 +23,10 @@ function periods(table) {
 
 export const firstPeriod = (table) => periods(table)[0] ?? null;
 export const lastPeriod = (table) => periods(table).at(-1) ?? null;
+
+// The session count tells a reader how far one long session can move a per-session rate.
+export const periodNote = (side, { name, values }) =>
+  `${side} (${name})${Number.isFinite(values.sessions) ? `: ${values.sessions} sessions` : ''}.`;
 
 const num = (period, key, scale = 1) => {
   const v = period?.values[key];

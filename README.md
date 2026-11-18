@@ -31,17 +31,18 @@ node --test 'tests/*.test.js'
 
 ## 측정값 갱신
 
-`metrics.py`는 `claude-config`에서 삭제됐지만 git 히스토리에서 바로 실행할 수 있습니다. 세션 기록
-(`~/.claude/projects`)은 Mac에만 있으므로 측정은 로컬에서 합니다.
+측정은 `claude-config`의 `scripts/metrics.py`로 합니다. 세션 기록(`~/.claude/projects`)은 Mac에만 있으므로
+측정은 로컬에서 합니다.
 
 ```bash
-git -C ~/claude-config show 28706d9^:scripts/metrics.py | python3 - --periods "Nov 1-14=2026-11-01..2026-11-14" --json site/data/metrics.json
+python3 ~/projects/claude-config/scripts/metrics.py --periods "Nov 2026=2026-11-01..2026-11-30" --json site/data/metrics.json
 ```
 
-기간 이름(`Nov 1-14`)은 페이지에 그대로 표시되므로 날짜 범위로 짓습니다. `--periods`를 빼면 최근 6주를 주 단위로
+기간 이름(`Nov 2026`)은 페이지에 그대로 표시되므로 날짜 범위로 짓습니다. `--periods`를 빼면 최근 6주를 주 단위로
 쓰고, 페이지는 마지막 주를 After로 씁니다. 그다음 commit과 push를 하면 GitHub Actions가 다시 배포합니다.
-`baseline.json`은 다시 잴 수 없는 기록값이므로 고치지 않습니다.
+`baseline.json`(Before, 2026년 8월)은 `metrics.py`의 집계 방식이 바뀔 때만 같은 기간으로 다시 잽니다. 2026-11-18에
+이벤트 중복 집계를 고친 스크립트로 다시 쟀습니다.
 
-올리기 전에 출력의 `sessions` 줄을 먼저 봅니다. 기준선은 세션 128개로 잰 값이라, 사용자 턴 3개 이상인 세션이
+올리기 전에 출력의 `sessions` 줄을 먼저 봅니다. 기준선은 세션 57개로 잰 값이라, 사용자 턴 3개 이상인 세션이
 30개쯤 쌓이기 전에는 올리지 않습니다. 세션이 적으면 긴 세션 몇 개가 숫자를 좌우합니다. 예를 들어 세션 9개로 잰
 기간은 세션당 서브에이전트 호출이 38번으로 나와, 페이지에 2702% 증가로 표시됩니다.

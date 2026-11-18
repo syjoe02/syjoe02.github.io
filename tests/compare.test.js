@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { METRICS, firstPeriod, lastPeriod, buildComparison } from '../site/compare.js';
+import { METRICS, firstPeriod, lastPeriod, buildComparison, periodNote } from '../site/compare.js';
 
 const load = (name) => JSON.parse(readFileSync(new URL(`../site/data/${name}`, import.meta.url)));
 const byKey = (rows) => Object.fromEntries(rows.map((r) => [r.key, r]));
@@ -10,7 +10,7 @@ const before = { name: 'b', values: { 'ctx K/step': 211, 'out/turn': 18900, 'age
 const after = { name: 'a', values: { 'ctx K/step': 172, 'out/turn': 13500, 'agents/session': 0.54, 'tests %': 46, 'tool_result KB/turn': 10 } };
 
 // Fixtures, not data/*.json: a new measurement must not fail the deploy.
-test('recorded audit values give the published changes', () => {
+test('fixture values give the expected changes and trends', () => {
   const rows = byKey(buildComparison(before, after));
   const pct = Object.fromEntries(METRICS.map((m) => [m.key, rows[m.key].changePct]));
   assert.deepEqual(pct, { 'ctx K/step': -18, 'out/turn': -29, 'agents/session': -60, 'tests %': 100, 'tool_result KB/turn': 0 });
@@ -38,11 +38,18 @@ test('context is reported in tokens so it formats as 172K', () => {
 
 test('a documented cause shows only when the metric improved', () => {
   const better = byKey(buildComparison(before, after));
-  assert.equal(better['agents/session'].note, 'Fell after removing nonexistent agents');
+  assert.equal(better['out/turn'].note, 'Fell after dropping a per-reply footer');
   assert.equal(better['ctx K/step'].note, null);
-  const worse = byKey(buildComparison(before, { name: 'a', values: { ...after.values, 'agents/session': 38.11 } }));
-  assert.equal(worse['agents/session'].trend, 'worse');
-  assert.equal(worse['agents/session'].note, null);
+  // Re-measured counts left agents/session within one session's noise, so it claims no cause.
+  assert.equal(better['agents/session'].note, null);
+  const worse = byKey(buildComparison(before, { name: 'a', values: { ...after.values, 'out/turn': 20000 } }));
+  assert.equal(worse['out/turn'].trend, 'worse');
+  assert.equal(worse['out/turn'].note, null);
+});
+
+test('period note gives the session count only when the table has one', () => {
+  assert.equal(periodNote('Before', { name: 'Aug 2026', values: { sessions: 57 } }), 'Before (Aug 2026): 57 sessions.');
+  assert.equal(periodNote('After', { name: 'Nov 1-18', values: { 'ctx K/step': 286 } }), 'After (Nov 1-18).');
 });
 
 test('uses the last period of a multi-period table', () => {
